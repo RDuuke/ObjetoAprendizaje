@@ -7,6 +7,9 @@ use Slim\App;
 use Illuminate\Database\Capsule\Manager;
 use Slim\Views\Twig;
 use Slim\Views\TwigExtension;
+use App\Controllers\HomeController;
+use App\Controllers\AuthController;
+use App\Validation\Validator;
 
 $app = new App([
     'settings' => [
@@ -49,6 +52,17 @@ $container['view'] = function ($container) {
     ));
 
     return $view;
+};
+
+$container['validation'] = function ($container) {
+    return new Validator;
+};
+$container['HomeController'] = function($container) {
+    return new HomeController($container);
+};
+
+$container['AuthController'] = function($container) {
+    return new AuthController($container);
 };
 
 require_once dirname(__DIR__) . "/src/routes.php";

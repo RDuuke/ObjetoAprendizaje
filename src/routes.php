@@ -1,5 +1,5 @@
 <?php
 
-$app->get("/home", function($request, $response){
-    return $this->view->render($response, "home.twig");
-});
+$app->get("/", "HomeController:index")->setName("home");
+$app->get("/user/create", "AuthController:create")->setName("user.create");
+$app->post("/user/store", "AuthController:store")->setName("user.store");

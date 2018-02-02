@@ -1,0 +1,26 @@
+{% extends "template/base.twig" %}
+
+{% block content %}
+<br><br>
+    <div class="ed-container">
+        <div class="ed-item s-100">
+            <form action="{{ path_for('user.store') }}" method="POST" class="ed-container" autocomplete="off">
+                <div class="input-field ed-item s-100">
+                    <input type="text" name="name" id="name" class="validate" placeholder="Nombre Apellido">
+                    <label for="name">Nombres y apellidos</label>
+                </div>
+                <div class="input-field ed-item s-100">
+                    <input type="email" name="email" id="email" class="validate" placeholder="tu@correo.com">
+                    <label for="email">Correo electronico</label>
+                </div>
+                <div class="input-field ed-item s-100">
+                    <input type="password" name="password" id="password" class="validate">
+                    <label for="password">Contraseña</label>
+                </div>
+                <div class="input-field ed-item s-100">
+                    <button>Crear cuenta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

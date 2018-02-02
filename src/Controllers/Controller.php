@@ -7,17 +7,17 @@ use Slim\Container;
 
 class Controller
 {
-    protected $conntainer;
+    protected $container;
 
-    public function __construct(Container $conntainer)
+    public function __construct(Container $container)
     {
-        $this->container = $conntainer;
+        $this->container = $container;
     }
 
     public function __get($property)
     {
-        if ($this->conntainer->{$property}) {
-            return $this->conntainer->{$property};
+        if ($this->container->{$property}) {
+            return $this->container->{$property};
         }
     }
 
