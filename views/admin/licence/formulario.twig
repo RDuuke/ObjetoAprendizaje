@@ -1,0 +1,15 @@
+{% extends "template/baseAdmin.twig" %}
+{% block content %}
+    <h4>Licencias</h4>
+    {% if licence.name %}
+        <form action="{{ path_for('licence.update', {"id" : licence.id }) }}" method="post" class="ed-container" autocomplete="off">
+    {% else %}
+        <form action="{{ path_for('licence.store') }}" method="post" class="ed-container" autocomplete="off">
+    {% endif %}
+        <div class="input-field ed-item s-100">
+            <input type="text" name="name" required value="{{ licence.name }}">
+            <label for="name">Nombre</label>
+            <button>{{ licence.name ? 'Actualizar ' : 'Crear' }} licencia</button>
+        </div>
+    </form>
+{% endblock %}

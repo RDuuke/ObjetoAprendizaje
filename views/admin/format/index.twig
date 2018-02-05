@@ -1,0 +1,26 @@
+{% extends "template/baseAdmin.twig" %}
+{% block content %}
+    <h4>Formatos</h4>
+    <a href="{{ path_for('format.create') }}">Agregar nuevo formato</a>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nombre</td>
+                <td>Acciones</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for f in formats %}
+            <tr>
+                <td>{{ f.id }}</td>
+                <td>{{ f.name }}</td>
+                <td><a href="{{ path_for("format.delete", {'id' : f.id}) }}">Eliminar</a> -
+                    <a href="{{ path_for('format.show', {'id' : f.id}) }}">Editar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

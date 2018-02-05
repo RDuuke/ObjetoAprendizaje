@@ -1,0 +1,15 @@
+{% extends "template/baseAdmin.twig" %}
+{% block content %}
+    <h4>Licencias</h4>
+    {% if format.name %}
+        <form action="{{ path_for('format.update', {"id" : format.id }) }}" method="post" class="ed-container" autocomplete="off">
+    {% else %}
+        <form action="{{ path_for('format.store') }}" method="post" class="ed-container" autocomplete="off">
+    {% endif %}
+        <div class="input-field ed-item s-100">
+            <input type="text" name="name" required value="{{ format.name }}">
+            <label for="name">Nombre</label>
+            <button>{{ format.name ? 'Actualizar ' : 'Crear' }} formato</button>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "template/baseAdmin.twig" %}
+{% block content %}
+    <h4>Licencias</h4>
+    {% if area.name %}
+        <form action="{{ path_for('area.update', {"id" : area.id }) }}" method="post" class="ed-container" autocomplete="off">
+    {% else %}
+        <form action="{{ path_for('area.store') }}" method="post" class="ed-container" autocomplete="off">
+    {% endif %}
+        <div class="input-field ed-item s-100">
+            <input type="text" name="codigo" required value="{{ area.codigo }}">
+            <label for="codigo">Codigo</label>
+        </div>
+        <div class="input-field ed-item s-100">
+            <input type="text" name="name" required value="{{ area.name }}">
+            <label for="name">Nombre</label>
+        </div>
+        <div class="input-field ed-item s-100">
+            <button>{{ area.name ? 'Actualizar ' : 'Crear' }} área</button>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "template/baseAdmin.twig" %}
+{% block content %}
+    <h4>Licencias</h4>
+    <a href="{{ path_for('licence.create') }}">Agregar nueva licencia</a>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nombre</td>
+                <td>Acciones</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for l in licences %}
+            <tr>
+                <td>{{ l.id }}</td>
+                <td>{{ l.name }}</td>
+                <td><a href="{{ path_for("licence.delete", {'id' : l.id}) }}">Eliminar</a> -
+                    <a href="{{ path_for('licence.show', {'id' : l.id}) }}">Editar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

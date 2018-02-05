@@ -1,0 +1,11 @@
+{% if flash.getMessage('info') %}
+    <span class="badge blue white-text">
+        {{ flash.getMessage('info') | first }}
+    </span>
+{% endif %}
+
+{% if flash.getMessage('error') %}
+    <span class="badge red white-text">
+        {{  flash.getMessage('error') | first }}
+    </span>
+{% endif %}

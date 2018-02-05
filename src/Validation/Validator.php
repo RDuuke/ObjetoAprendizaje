@@ -2,7 +2,6 @@
 
 namespace App\Validation;
 
-use Respect\Validation\Validator as Respect;
 use Respect\Validation\Exceptions\NestedValidationException;
 
 class Validator
@@ -13,9 +12,11 @@ class Validator
             try {
                 $rule->setName(ucfirst($field))->assert($request->getParam($field));
             } catch (NestedValidationException $e) {
-                $this->errors[$field] = $e->getMessage();
+                $this->errors[$field] = $e->getMessages();
             }
         }
+
+        $_SESSION['errors'] = $this->errors;
 
         return $this;
     }

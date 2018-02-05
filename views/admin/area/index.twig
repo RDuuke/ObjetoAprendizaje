@@ -1,0 +1,28 @@
+{% extends "template/baseAdmin.twig" %}
+{% block content %}
+    <h4>Áreas de conocimiento</h4>
+    <a href="{{ path_for('area.create') }}">Agregar nueva área de conocimiento</a>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Codigo</td>
+                <td>Nombre</td>
+                <td>Acciones</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for a in areas %}
+            <tr>
+                <td>{{ a.id }}</td>
+                <td>{{ a.codigo }}</td>
+                <td>{{ a.name }}</td>
+                <td><a href="{{ path_for("area.delete", {'id' : a.id}) }}">Eliminar</a> -
+                    <a href="{{ path_for('area.show', {'id' : a.id}) }}">Editar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

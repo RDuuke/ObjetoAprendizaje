@@ -22,17 +22,24 @@
                 <li><a href="">area numero 7</a></li>
             </ul>
             <hr>
-            <p>inicio de sesion</p>
-            <form action="">
-                <label for="username">nombre de usuario</label>
-                <input type="text" name="username">
-                <label for="password">contraseña</label>
-                <input type="password" name="password">
-                <button>inciar sesion</button>
-            </form>
-            <a href="{{ path_for('user.create') }}">crear nueva cuenta</a>
+            {% if auth.check %}
+                <p><b>{{  auth.user.name }}</b></p>
+                <a href="{{ path_for('user.create') }}">Mi cuenta</a> <br>
+                <a href="{{ path_for('auth.signout') }}">Cerrar sesión</a>
+            {% else %}
+                <p>inicio de sesion</p>
+                <form action="{{ path_for("auth.signin") }}" method="post" autocomplete="off">
+                    <label for="username">nombre de usuario</label>
+                    <input type="email" name="email">
+                    <label for="password">contraseña</label>
+                    <input type="password" name="password">
+                    <button>inciar sesion</button>
+                </form>
+                <a href="{{ path_for('user.create') }}">crear nueva cuenta</a>
+            {% endif %}
         </div>
         <div class="ed-item s-100 l-80">
+            {% include 'template/partials/flash.twig' %}
             {% block content %}{% endblock %}
         </div>
     </div>
