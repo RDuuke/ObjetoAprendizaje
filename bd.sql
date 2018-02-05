@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.1.19-MariaDB - mariadb.org binary distribution
--- Server OS:                    Win32
--- HeidiSQL Version:             9.4.0.5125
+-- Versión del servidor:         10.1.30-MariaDB - mariadb.org binary distribution
+-- SO del servidor:              Win32
+-- HeidiSQL Versión:             9.5.0.5196
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -12,11 +12,13 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- Dumping database structure for bancoobjetos
+-- Volcando estructura de base de datos para bancoobjetos
+DROP DATABASE IF EXISTS `bancoobjetos`;
 CREATE DATABASE IF NOT EXISTS `bancoobjetos` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
 USE `bancoobjetos`;
 
--- Dumping structure for table bancoobjetos.areas_conocimientos
+-- Volcando estructura para tabla bancoobjetos.areas_conocimientos
+DROP TABLE IF EXISTS `areas_conocimientos`;
 CREATE TABLE IF NOT EXISTS `areas_conocimientos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -27,13 +29,14 @@ CREATE TABLE IF NOT EXISTS `areas_conocimientos` (
   UNIQUE KEY `UNIQUE_CODIGO` (`codigo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table bancoobjetos.areas_conocimientos: ~0 rows (approximately)
+-- Volcando datos para la tabla bancoobjetos.areas_conocimientos: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `areas_conocimientos` DISABLE KEYS */;
-INSERT INTO `areas_conocimientos` (`id`, `codigo`, `name`, `created_at`, `updated_at`) VALUES
+REPLACE INTO `areas_conocimientos` (`id`, `codigo`, `name`, `created_at`, `updated_at`) VALUES
 	(1, '1', 'AGRONOMIA VETERINARIA Y AFINES.', '2018-02-04 22:07:03', '2018-02-05 04:07:03');
 /*!40000 ALTER TABLE `areas_conocimientos` ENABLE KEYS */;
 
--- Dumping structure for table bancoobjetos.formato
+-- Volcando estructura para tabla bancoobjetos.formato
+DROP TABLE IF EXISTS `formato`;
 CREATE TABLE IF NOT EXISTS `formato` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -43,14 +46,15 @@ CREATE TABLE IF NOT EXISTS `formato` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table bancoobjetos.formato: ~2 rows (approximately)
+-- Volcando datos para la tabla bancoobjetos.formato: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `formato` DISABLE KEYS */;
-INSERT INTO `formato` (`id`, `name`, `created_at`, `updated_at`) VALUES
+REPLACE INTO `formato` (`id`, `name`, `created_at`, `updated_at`) VALUES
 	(3, 'Comprimido (zip, rar, tar.gz)', '2018-02-05 03:31:30', '2018-02-05 03:31:30'),
 	(6, 'Imagen (jpg, gif, png)', '2018-02-05 03:33:34', '2018-02-05 03:33:34');
 /*!40000 ALTER TABLE `formato` ENABLE KEYS */;
 
--- Dumping structure for table bancoobjetos.licencias
+-- Volcando estructura para tabla bancoobjetos.licencias
+DROP TABLE IF EXISTS `licencias`;
 CREATE TABLE IF NOT EXISTS `licencias` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
@@ -60,14 +64,15 @@ CREATE TABLE IF NOT EXISTS `licencias` (
   UNIQUE KEY `UNIQUE NAME` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table bancoobjetos.licencias: ~2 rows (approximately)
+-- Volcando datos para la tabla bancoobjetos.licencias: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `licencias` DISABLE KEYS */;
-INSERT INTO `licencias` (`id`, `name`, `updated_at`, `created_at`) VALUES
+REPLACE INTO `licencias` (`id`, `name`, `updated_at`, `created_at`) VALUES
 	(1, 'Licencias GPL (Licencia Pública General Reducida de GNU)', '2018-02-05 01:40:38', '2018-02-05 01:40:38'),
 	(3, 'Licencia de Dominio Público', '2018-02-05 01:46:34', '2018-02-05 01:46:34');
 /*!40000 ALTER TABLE `licencias` ENABLE KEYS */;
 
--- Dumping structure for table bancoobjetos.nucleo_conocimiento
+-- Volcando estructura para tabla bancoobjetos.nucleo_conocimiento
+DROP TABLE IF EXISTS `nucleo_conocimiento`;
 CREATE TABLE IF NOT EXISTS `nucleo_conocimiento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -79,13 +84,16 @@ CREATE TABLE IF NOT EXISTS `nucleo_conocimiento` (
   UNIQUE KEY `UNIQUE CODIGO` (`codigo`),
   KEY `FK__areas_conocimientos` (`codigo_area`),
   CONSTRAINT `FK__areas_conocimientos` FOREIGN KEY (`codigo_area`) REFERENCES `areas_conocimientos` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table bancoobjetos.nucleo_conocimiento: ~0 rows (approximately)
+-- Volcando datos para la tabla bancoobjetos.nucleo_conocimiento: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `nucleo_conocimiento` DISABLE KEYS */;
+REPLACE INTO `nucleo_conocimiento` (`id`, `name`, `codigo`, `codigo_area`, `created_at`, `updated_at`) VALUES
+	(1, 'AGRONOMIA.', '11', '1', '2018-02-05 13:49:18', '2018-02-05 19:49:18');
 /*!40000 ALTER TABLE `nucleo_conocimiento` ENABLE KEYS */;
 
--- Dumping structure for table bancoobjetos.objetos_cabecera
+-- Volcando estructura para tabla bancoobjetos.objetos_cabecera
+DROP TABLE IF EXISTS `objetos_cabecera`;
 CREATE TABLE IF NOT EXISTS `objetos_cabecera` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
@@ -101,11 +109,12 @@ CREATE TABLE IF NOT EXISTS `objetos_cabecera` (
   CONSTRAINT `FK_objeto_cabecera_licencias` FOREIGN KEY (`licencia`) REFERENCES `licencias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table bancoobjetos.objetos_cabecera: ~0 rows (approximately)
+-- Volcando datos para la tabla bancoobjetos.objetos_cabecera: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `objetos_cabecera` DISABLE KEYS */;
 /*!40000 ALTER TABLE `objetos_cabecera` ENABLE KEYS */;
 
--- Dumping structure for table bancoobjetos.objetos_ciclo
+-- Volcando estructura para tabla bancoobjetos.objetos_ciclo
+DROP TABLE IF EXISTS `objetos_ciclo`;
 CREATE TABLE IF NOT EXISTS `objetos_ciclo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo_objeto` int(11) NOT NULL,
@@ -113,22 +122,27 @@ CREATE TABLE IF NOT EXISTS `objetos_ciclo` (
   `entidad` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
   `version` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `fecha` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK_objeto_ciclo_objeto_cabecera` (`codigo_objeto`),
   CONSTRAINT `FK_objeto_ciclo_objeto_cabecera` FOREIGN KEY (`codigo_objeto`) REFERENCES `objetos_cabecera` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table bancoobjetos.objetos_ciclo: ~0 rows (approximately)
+-- Volcando datos para la tabla bancoobjetos.objetos_ciclo: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `objetos_ciclo` DISABLE KEYS */;
 /*!40000 ALTER TABLE `objetos_ciclo` ENABLE KEYS */;
 
--- Dumping structure for table bancoobjetos.objetos_tecnico
+-- Volcando estructura para tabla bancoobjetos.objetos_tecnico
+DROP TABLE IF EXISTS `objetos_tecnico`;
 CREATE TABLE IF NOT EXISTS `objetos_tecnico` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo_objeto` int(11) DEFAULT NULL,
   `formato` int(11) DEFAULT NULL,
   `instrucciones` varchar(250) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No especificado',
   `requerimientos` varchar(250) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No especificado',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK_objeto_tecnico_objeto_cabecera` (`codigo_objeto`),
   KEY `FK_objeto_tecnico_formato` (`formato`),
@@ -136,25 +150,27 @@ CREATE TABLE IF NOT EXISTS `objetos_tecnico` (
   CONSTRAINT `FK_objeto_tecnico_objeto_cabecera` FOREIGN KEY (`codigo_objeto`) REFERENCES `objetos_cabecera` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table bancoobjetos.objetos_tecnico: ~0 rows (approximately)
+-- Volcando datos para la tabla bancoobjetos.objetos_tecnico: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `objetos_tecnico` DISABLE KEYS */;
 /*!40000 ALTER TABLE `objetos_tecnico` ENABLE KEYS */;
 
--- Dumping structure for table bancoobjetos.roles
+-- Volcando estructura para tabla bancoobjetos.roles
+DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table bancoobjetos.roles: ~2 rows (approximately)
+-- Volcando datos para la tabla bancoobjetos.roles: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` (`id`, `name`) VALUES
+REPLACE INTO `roles` (`id`, `name`) VALUES
 	(1, 'Usuario'),
 	(2, 'Admin');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
--- Dumping structure for table bancoobjetos.users
+-- Volcando estructura para tabla bancoobjetos.users
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
@@ -169,9 +185,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   CONSTRAINT `FK_users_roles` FOREIGN KEY (`role`) REFERENCES `roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dumping data for table bancoobjetos.users: ~5 rows (approximately)
+-- Volcando datos para la tabla bancoobjetos.users: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `updated_at`, `role`) VALUES
+REPLACE INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `updated_at`, `role`) VALUES
 	(4, 'Juan Duque', 'juuanduuke@gmail.com', '$2y$10$Dun4HcUnYMLz2zZtY3MYPOZWlBhloedjMqaYzcS2h8bdO6Up8joZe', '2018-02-04 22:13:06', '2018-02-04 22:13:06', 2),
 	(5, 'Duque Juan', 'juan.duque@gmail.com', '$2y$10$j/EfROSsk919mwiA5VcqquNPyYBvNzQxTCH/hb/BLqA60jH8YaZQm', '2018-02-04 16:49:27', '2018-02-04 16:49:27', 1),
 	(6, 'Carlos Andres', 'carlos.andres@gmail.com', '$2y$10$mBtjV4mVTDgvdCkwgzNV1ObIBCr//Gp1XMnKptkACIpdZyG8hTxLC', '2018-02-04 16:49:27', '2018-02-04 16:49:27', 1),
