@@ -33,12 +33,22 @@ $app->group("/admin", function (){
    $this->get("/area/create", "AreaController:create")->setName("area.create");
    $this->post("/area/update/{id}", "AreaController:update")->setName("area.update");
 
-   $this->get("/area/nucleo/create", "AdminController:createNucleo")->setName("nucleo.create");
-   $this->post("/area/nucleo/store", "AdminController:storeNucleo")->setName("nucleo.store");
+   $this->get("/area/nucleo", "AdminController:indexNucleo")->setName("nucleo.index");
+   $this->post("/area/nucleo/store", "NucleoController:store")->setName("nucleo.store");
+   $this->get("/area/nucleo/delete/{id}", "NucleoController:delete")->setName("nucleo.delete");
+   $this->get("/area/nucleo/show/{id}", "NucleoController:show")->setName("nucleo.show");
+   $this->get("/area/nucleo/create", "NucleoController:create")->setName("nucleo.create");
+   $this->post("/area/nucleo/update/{id}", "NucleoController:update")->setName("nucleo.update");
+   
+   
 
 
+    $this->get("/object", "AdminController:indexObject")->setName("object.index");
     $this->get("/objet/create", "ObjectController:create")->setName("object.create");
     $this->post("/object/store", "ObjectController:store")->setName("object.store");
+    $this->get("/object/show/{id}", "ObjectController:show")->setName("object.show");
+    $this->post("/object/update/{id}", "ObjectController:update")->setName("object.update");
+    $this->get("/object/delete/{id}", "ObjectController:delete")->setName("object.delete");
 
 })->add(new App\Middleware\AdminMiddleware($container));
 /*

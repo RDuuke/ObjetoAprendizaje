@@ -1,0 +1,38 @@
+{% extends "template/baseAdmin.twig" %}
+{% block content %}
+    <h4>Nucleo</h4>
+    {% if nucleo.name %}
+        <form action="{{ path_for('nucleo.update', {"id" : nucleo.id }) }}" method="post" class="ed-container" autocomplete="off">
+    {% else %}
+        <form action="{{ path_for('nucleo.store') }}" method="post" class="ed-container" autocomplete="off">
+    {% endif %}
+        <div class="input-field ed-item s-100">
+            <input type="text" name="codigo" required value="{{ nucleo.codigo }}">
+            <label for="codigo">Codigo</label>
+        </div>
+        <div class="input-field ed-item s-100">
+            <input type="text" name="name" required value="{{ nucleo.name }}">
+            <label for="name">Nombre</label>
+        </div>
+        <div class="input-field ed-item s-100">
+            <label for="_area">Seleccione el area</label>
+            <br>
+            <br>
+        </div>
+        <div class="ed-item s-100">
+            <select id="codigo_area" class="browser-default full" name="codigo_area">
+            {% for a in areas %}
+                {% set selected = "" %}
+                {% if (a.id == nucleo.codigo_area) %}
+                    {% set selected = "selected" %}
+                {% endif %}
+                <option value="{{ a.id }}" {{ selected }}>{{ a.name }}</option>
+            {% endfor %}
+            </select>
+        </div>
+        <div class="input-field ed-item s-100">
+            <br>
+            <button>{{ nucleo.name ? 'Actualizar ' : 'Crear' }} nucleo</button>
+        </div>
+    </form>
+{% endblock %}

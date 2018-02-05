@@ -1,0 +1,30 @@
+{% extends "template/baseAdmin.twig" %}
+{% block content %}
+    <h4>Nucleos</h4>
+    <a href="{{ path_for('nucleo.create') }}">Agregar nuevo nucleo</a>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nombre</td>
+                <td>Codigo</td>
+                <td>Area</td>
+                <td>Acciones</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for n in nucleos %}
+            <tr>
+                <td>{{ n.id }}</td>
+                <td>{{ n.name }}</td>
+                <td>{{ n.codigo }}</td>
+                <td>{{ n.area.name }}</td>
+                <td><a href="{{ path_for("nucleo.delete", {'id' : n.id}) }}">Eliminar</a> -
+                    <a href="{{ path_for('nucleo.show', {'id' : n.id}) }}">Editar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

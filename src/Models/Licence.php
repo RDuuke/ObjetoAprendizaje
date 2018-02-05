@@ -9,4 +9,9 @@ class Licence extends Model
 {
     protected $table = "licencias";
     protected $fillable = ["name"];
+    
+    public function objetos()
+    {
+        return $this->hasMany("App\Models\Object", "licencia", "id");
+    }
 }

@@ -4,6 +4,8 @@ require_once dirname(__DIR__) . DS . "vendor" . DS ."autoload.php";
 use App\Controllers\AreaController;
 use App\Controllers\FormatController;
 use App\Controllers\LicenceController;
+use App\Controllers\NucleoController;
+use App\Controllers\ObjectController;
 use App\Middleware\OldInputMiddleware;
 use Slim\App;
 use Illuminate\Database\Capsule\Manager;
@@ -102,6 +104,15 @@ $container['AreaController'] = function ($container)
 {
     return new AreaController($container);
 };
+$container['NucleoController'] = function ($container)
+{
+    return new NucleoController($container);
+};
+$container['ObjectController'] = function ($container)
+{
+    return new ObjectController($container);
+};
+
 $app->add(new ValidationErrorsMiddleware($container));
 $app->add(new OldInputMiddleware($container));
 

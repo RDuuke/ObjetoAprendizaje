@@ -1,0 +1,75 @@
+{% extends "template/baseAdmin.twig" %}
+{% block content %}
+    <h4>Objetos</h4>
+    <a href="{{ path_for('object.create') }}">Agregar nuevo objeto</a>
+    <br>
+    <br>
+    <div class="ed-container">
+        <ul class="collapsible ed-item s-100" data-collapsible="accordion">
+            {% for o in objects %}
+            <li>
+                <div class="collapsible-header">{{ o.titulo }}</div>
+                <div class="collapsible-body">
+                    <h5>Datos basicos</h5>
+                    <table>
+                        <thead>
+                            <th>
+                                <td>Descripcion</td>
+                                <td>Adjunto</td>
+                                <td>Licencia</td>
+                                <td>Tags</td>
+                                <td># de descargas</td>
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ o.descripcion }}</td>
+                                <td>{{ o.adjunto }}</td>
+                                <td>{{ o.licencia.name }}</td>
+                                <td>{{ o.tags }}</td>
+                                <td>{{ o.descargas }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h5>Datos tecnicos</h5>
+                    <table>
+                        <thead>
+                            <th>
+                                <td>Formato</td>
+                                <td>Instrucciones</td>
+                                <td>Requerimientos</td>
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ o.objeto_tecnhincal.formato.name }}</td>
+                                <td>{{ o.objeto_tecnhincal.instrucciones }}</td>
+                                <td>{{ o.objeto_tecnhincal.requerimientos }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h5>Datos ciclo de vida</h5>
+                    <table>
+                        <thead>
+                            <th>
+                                <td>Autor</td>
+                                <td>Entidad</td>
+                                <td>Version</td>
+                                <td>Fecha</td>
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ o.objeto_cycle.autor }}</td>
+                                <td>{{ o.objeto_cycle.entidad }}</td>
+                                <td>{{ o.objeto_cycle.version }}</td>
+                                <td>{{ o.objeto_cycle.fecha }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </li>  
+            {% endfor %}
+         </ul>
+    </div>
+{% endblock %}

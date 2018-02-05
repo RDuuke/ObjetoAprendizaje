@@ -13,12 +13,12 @@
     <div class="ed-item s-100 l-20">
         <p>Acciones</p>
         <ul>
-            <li><a href="">Objetos</a></li>
+            <li><a href="{{ path_for("object.index") }}">Objetos</a></li>
             <li><a href="{{ path_for("licence.index") }}">Licencias</a></li>
             <li><a href="{{ path_for("format.index") }}">Formatos</a></li>
             <li><a href="">Usuarios</a></li>
             <li><a href="{{ path_for("area.index") }}">Areas de conocimiento</a></li>
-            <li><a href="">Nucleo de conocimiento</a></li>
+            <li><a href="{{ path_for("nucleo.index") }}">Nucleo de conocimiento</a></li>
             <li><a href="">Salir</a></li>
         </ul>
         <hr>
@@ -46,5 +46,7 @@
 <body>
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>    </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script src="{{ base_url }}/js/template.js"></script>
+</body>
 </html>

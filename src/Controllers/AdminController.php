@@ -5,7 +5,8 @@ namespace App\Controllers;
 use App\Models\Area;
 use App\Models\Format;
 use App\Models\Licence;
-
+use App\Models\Nucleo;
+use App\Models\Object;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -40,6 +41,21 @@ class AdminController extends Controller
             'areas' => $areas
         ]);
     }
-
+    
+    public function indexNucleo(Request $request, Response $response)
+    {
+        $nucleos = Nucleo::all();
+        return $this->view->render($response, 'admin/nucleo/index.twig', [
+            'nucleos' => $nucleos
+        ]);
+    }
+    
+    public function indexObject(Request $request, Response $response)
+    {
+        $objects = Object::all();
+        return $this->view->render($response, 'admin/object/index.twig', [
+            'objects' => $objects
+        ]);
+    }
 
 }
