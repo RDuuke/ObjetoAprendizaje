@@ -10,5 +10,8 @@ class objectCycle extends Model{
     
     protected $fillable = ['codigo_objeto', 'autor', 'entidad', 'version', 'fecha'];
 
-    
+    public function objeto()
+    {
+        return $this->belongsTo("\App\Models\Object", "codigo_objeto");
+    }
 }

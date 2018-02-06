@@ -50,6 +50,22 @@
             {% endfor %}
             </select>
         </div>
+    <div class="input-field ed-item s-100">
+        <label for="_formato">Seleccione el nucleo</label>
+        <br>
+        <br>
+    </div>
+    <div class="ed-item s-100">
+        <select id="codigo_area" class="browser-default full" name="nucleo">
+            {% for n in nucleos %}
+                {% set selected = "" %}
+                {% if (n.id == object.nucleo.id) %}
+                    {% set selected = "selected" %}
+                {% endif %}
+                <option value="{{ n.id }}" {{ selected }}>{{ n.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
         <div class="input-field ed-item s-100">
             <input type="text" name="instrucciones" required value="{{ object.objeto_tecnhincal.instrucciones }}">
             <label for="instrucciones">Instrucciones</label>

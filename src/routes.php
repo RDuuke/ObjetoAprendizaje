@@ -44,7 +44,7 @@ $app->group("/admin", function (){
 
 
     $this->get("/object", "AdminController:indexObject")->setName("object.index");
-    $this->get("/objet/create", "ObjectController:create")->setName("object.create");
+    $this->get("/object/create", "ObjectController:create")->setName("object.create");
     $this->post("/object/store", "ObjectController:store")->setName("object.store");
     $this->get("/object/show/{id}", "ObjectController:show")->setName("object.show");
     $this->post("/object/update/{id}", "ObjectController:update")->setName("object.update");

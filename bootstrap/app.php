@@ -52,12 +52,14 @@ $container['db'] = function ($container) use ($capsule) {
 $container['auth'] = function ($container) {
     return new Auth($container);
 };
+$container['upload_directory'] = dirname(__DIR__ ) . DS ."resources" . DS;
 
 $container['view'] = function ($container) {
 
     $view = new Twig(__DIR__ . "/../views",[
         'cache' => false
     ]);
+
 
     $view->addExtension(new TwigExtension(
         $container->router,
@@ -70,6 +72,18 @@ $container['view'] = function ($container) {
     ]);
 
     $view->getEnvironment()->addGlobal('flash', $container->flash);
+
+    $function = new Twig_SimpleFunction('getNameFormat', function ($id) {
+        $format = \App\Models\Format::find($id);
+        return $format->name;
+    });
+    $view->getEnvironment()->addFunction($function);
+
+    $function = new Twig_SimpleFunction('getNameLicence', function ($id) {
+        $licence = \App\Models\Licence::find($id);
+        return $licence->name;
+    });
+    $view->getEnvironment()->addFunction($function);
     return $view;
 };
 

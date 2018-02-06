@@ -3,14 +3,17 @@
 namespace App\Controllers;
 
 use App\Controllers\Controller;
+use App\Models\Area;
 use App\Models\Format;
 use App\Models\Licence;
+use App\Models\Nucleo;
 use App\Models\Object;
 use App\Models\objectCycle;
 use App\Models\objectTechnical;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Respect\Validation\Validator as v;
+use Slim\Http\UploadedFile;
 
 
 class ObjectController extends Controller {
@@ -19,13 +22,16 @@ class ObjectController extends Controller {
         
         $formats = Format::all();
         $licences = Licence::all();
+        $nucleos = Nucleo::all();
         return $this->view->render($response, 'admin/object/formulario.twig', [
             'formats' => $formats,
-            'licences' => $licences
+            'licences' => $licences,
+            'nucleos' => $nucleos
         ]);
     }
     
     public function store(Request $request,Response $response) {
+        $filesNames = $request->getUploadedFiles();
         $validation = $this->validation->validate($request, [
             "titulo" => v::notEmpty(),
             "descripcion" => v::notEmpty(),
@@ -47,8 +53,9 @@ class ObjectController extends Controller {
             "titulo" => $request->getParam("titulo"),
             "descripcion" => $request->getParam("descripcion"),
             "tags" => $request->getParam("tags"),
-            "adjunto" => $request->getParam("password"),
-            "licencia" => $request->getParam("licencia")
+            "adjunto" => $this->moveUploadedFile($request->getParam('nucleo'), $filesNames['adjunto']),
+            "licencia" => $request->getParam("licence"),
+            "codigo" => Nucleo::find($request->getParam('nucleo'))->codigo
         ]);
         
         objectTechnical::create([
@@ -65,8 +72,52 @@ class ObjectController extends Controller {
             "fecha" => $request->getParam("fecha"),
             "codigo_objeto" => $object->id
         ]);
-
         $this->flash->addMessage('info', "Se creo correctamente el objeto");
         return $response->withRedirect($this->router->pathFor('object.index'));
+    }
+
+    public function delete(Request $request, Response $response)
+    {
+        $router = $request->getAttribute('route');
+        $nucleo = Object::find($router->getArgument('id'));
+        if ($nucleo->delete()) {
+            $this->flash->addMessage('info', "Se Elimino correctamente");
+        }
+        $this->flash->addMessage('Error', "No sé Elimino correctamente");
+        return $response->withRedirect($this->router->pathFor('object.index'));
+    }
+
+    public function show(Request $request, Response $response)
+    {
+        $router = $request->getAttribute('route');
+        $object = Object::find($router->getArgument('id'));
+        $formats = Format::all();
+        $licences = Licence::all();
+        $nucleos = Nucleo::all();
+        return $this->view->render($response, 'admin/object/formulario.twig', [
+            'nucleo' => $nucleos,
+            'object' => $object,
+            'licences' => $licences,
+            'formats' => $formats
+        ]);
+    }
+
+    protected function moveUploadedFile($codigo, UploadedFile $file)
+    {
+        $directory = $this->upload_directory;
+        $directory .= Nucleo::find($codigo)->codigo . DS;
+        $directory .= Nucleo::find($codigo)->area->codigo . DS;
+        $savedirectory = Nucleo::find($codigo)->codigo . DS . Nucleo::find($codigo)->area->codigo . DS;
+        echo $directory;
+        if(!file_exists($directory)) {
+            mkdir($directory, 0777, true);
+        }
+        $basename = bin2hex(random_bytes(8));
+        $extension = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
+        $filename = sprintf('%s.%0.8s', $basename, $extension);
+
+        $file->moveTo($directory . $filename);
+
+        return $savedirectory.$filename;
     }
 }

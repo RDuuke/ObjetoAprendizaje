@@ -8,20 +8,25 @@ use Illuminate\Database\Eloquent\Model;
 class Object extends Model {
     
     protected $table = "objetos_cabecera";
-    protected $fillable = ["titulo", "adjunto", "descripcion", "tags", "licencia", "descargas"];
+    protected $fillable = ["titulo", "adjunto", "descripcion", "tags", "licencia", "descargas", "codigo"];
     
     public function licencia()
     {
-        return $this->belongsTo("\App\Models\Licence", "licencia");
+        return $this->belongsTo("App\Models\Licence", "licencia");
+    }
+
+    public function nucleo()
+    {
+        return $this->belongsTo("App\Models\Nucleo", "codigo");
     }
     
     public function objeto_tecnhincal()
     {
-        return $this->hasMany("\App\Models\objectTechnical", "codigo_objeto", 'id');
+        return $this->hasOne("App\Models\objectTechnical", "codigo_objeto", 'id');
     }
     
     public function objeto_cycle()
     {
-        return $this->hasMany("\App\Models\objectCycle", "codigo_objeto", 'id');
+        return $this->hasOne("App\Models\objectCycle", "codigo_objeto", 'id');
     }
 }

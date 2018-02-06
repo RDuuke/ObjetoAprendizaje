@@ -8,24 +8,25 @@
         <ul class="collapsible ed-item s-100" data-collapsible="accordion">
             {% for o in objects %}
             <li>
-                <div class="collapsible-header">{{ o.titulo }}</div>
+                <div class="collapsible-header">{{ o.titulo }} <span class="badge">
+                        <a href="{{ path_for('object.delete', {'id' : o.id }) }}">Eliminar</a> - <a href="{{ path_for('object.show', {'id' : o.id }) }}">Editar</a></span></div>
                 <div class="collapsible-body">
                     <h5>Datos basicos</h5>
                     <table>
                         <thead>
-                            <th>
+                            <tr>
                                 <td>Descripcion</td>
                                 <td>Adjunto</td>
                                 <td>Licencia</td>
                                 <td>Tags</td>
                                 <td># de descargas</td>
-                            </th>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>{{ o.descripcion }}</td>
                                 <td>{{ o.adjunto }}</td>
-                                <td>{{ o.licencia.name }}</td>
+                                <td>{{ getNameLicence(o.licencia) }}</td>
                                 <td>{{ o.tags }}</td>
                                 <td>{{ o.descargas }}</td>
                             </tr>
@@ -34,15 +35,15 @@
                     <h5>Datos tecnicos</h5>
                     <table>
                         <thead>
-                            <th>
+                            <tr>
                                 <td>Formato</td>
                                 <td>Instrucciones</td>
                                 <td>Requerimientos</td>
-                            </th>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{{ o.objeto_tecnhincal.formato.name }}</td>
+                                <td>{{ getNameFormat(o.objeto_tecnhincal.formato) }}</td>
                                 <td>{{ o.objeto_tecnhincal.instrucciones }}</td>
                                 <td>{{ o.objeto_tecnhincal.requerimientos }}</td>
                             </tr>
@@ -51,12 +52,12 @@
                     <h5>Datos ciclo de vida</h5>
                     <table>
                         <thead>
-                            <th>
+                            <tr>
                                 <td>Autor</td>
                                 <td>Entidad</td>
                                 <td>Version</td>
                                 <td>Fecha</td>
-                            </th>
+                            </tr>
                         </thead>
                         <tbody>
                             <tr>

@@ -15,5 +15,10 @@ class objectTechnical extends Model{
     {
         return $this->belongsTo("\App\Models\Format", "formato");
     }
+
+    public function objeto()
+    {
+        return $this->belongsTo("\App\Models\Object", "codigo_objeto");
+    }
     
 }
