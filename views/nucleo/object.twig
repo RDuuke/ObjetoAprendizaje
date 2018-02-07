@@ -1,0 +1,15 @@
+{% extends "template/base.twig" %}
+{% block content %}
+<div class="ed-container">
+        <div class="ed-item s-100">
+            <h5>Objetos de {{ nucleo.name }}</h5>
+        </div>
+        <div class="ed-container">
+            <ul>
+            {% for o in nucleo.objetos %}
+                <li><a href="{{ path_for('object.home.show', {'id' : o.id }) }}">{{ o.titulo }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>    
+    </diV>
+{% endblock %}

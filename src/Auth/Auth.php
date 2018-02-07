@@ -40,8 +40,7 @@ class Auth
 
     public function isAdmin()
     {
-        $user = User::find($_SESSION['user']);
-        if ($user->role == 2) {
+        if ($this->user()->role == 2) {
             return true;
         }
         return false;

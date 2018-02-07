@@ -16,9 +16,9 @@ class Nucleo extends Model {
         return $this->belongsTo("\App\Models\Area", "codigo_area");
     }
 
-    public function objeto()
+    public function objetos()
     {
-        return $this->hasMany("App\Models\Object", "codigo", 'id');
+        return $this->hasMany("\App\Models\Object", "codigo", "codigo");
     }
 
     public function getCodigoArea($codigo)

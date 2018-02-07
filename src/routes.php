@@ -1,11 +1,15 @@
 <?php
 
 $app->get("/", "HomeController:index")->setName("home");
-$app->get("/user/create", "AuthController:create")->setName("user.create");
+$app->get("/user/create", "AuthController:create")->setName("user.create")->add(new App\Middleware\AuthMiddleware($container));
 $app->post("/user/store", "AuthController:store")->setName("user.store");
 
 $app->post("/auth/signin", "AuthController:signin")->setName("auth.signin");
 $app->get("/auth/signout", "AuthController:signout")->setName("auth.signout");
+
+$app->get("/area/show/{id}", "AreaController:showNucleos")->setName("area.nucleo.show");
+$app->get("/nucleo/show/{id}", "NucleoController:showObjects")->setName("nucleo.object.show");
+$app->get("/object/show/{id}", "ObjectController:showHome")->setName("object.home.show");
 
 $app->group("/admin", function (){
    $this->get("", "AdminController:index")->setName("admin.home");
@@ -20,6 +24,7 @@ $app->group("/admin", function (){
    $this->post("/licence/update/{id}", "LicenceController:update")->setName("licence.update");
 
    $this->get("/format", "AdminController:indexFormat")->setName("format.index");
+   $this->get("/format/page/{page}", "AdminController:indexFormat")->setName("format.index");
    $this->post("/format/store", "FormatController:store")->setName("format.store");
    $this->get("/format/delete/{id}", "FormatController:delete")->setName("format.delete");
    $this->get("/format/show/{id}", "FormatController:show")->setName("format.show");

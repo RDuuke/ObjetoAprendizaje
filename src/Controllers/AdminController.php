@@ -28,7 +28,12 @@ class AdminController extends Controller
 
     public function indexFormat(Request $request, Response $response)
     {
-        $formats = Format::all()->toArray();
+        $formats = Format::paginate(1);
+        $router = $request->getAttribute('route');
+        $page = $router->getArgument('page');
+        echo "<pre>";
+        print_r($formats[0]);
+        $formats->setPath($this->router->pathFor('format.index'));
         return $this->view->render($response, 'admin/format/index.twig', [
             'formats' => $formats
         ]);

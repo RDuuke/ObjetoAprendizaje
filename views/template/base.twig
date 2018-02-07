@@ -13,18 +13,17 @@
         <div class="ed-item s-100 l-20">
             <p>Areas de conocimiento</p>
             <ul>
-                <li><a href="">area numero 1</a></li>
-                <li><a href="">area numero 2</a></li>
-                <li><a href="">area numero 3</a></li>
-                <li><a href="">area numero 4</a></li>
-                <li><a href="">area numero 5</a></li>
-                <li><a href="">area numero 6</a></li>
-                <li><a href="">area numero 7</a></li>
+                {% for a in areas %}
+                    <li><a href="{{ path_for('area.nucleo.show', {'id': a.id}) }}">{{ a.name }}</a></li>
+                {% endfor %}
+                
             </ul>
             <hr>
             {% if auth.check %}
                 <p><b>{{  auth.user.name }}</b></p>
-                <a href="{{ path_for('user.create') }}">Mi cuenta</a> <br>
+                {% if auth.user.role == 2 %}
+                    <a href="{{ path_for('admin.home') }}">Panel de administración</a> <br>
+                {% endif %}
                 <a href="{{ path_for('auth.signout') }}">Cerrar sesión</a>
             {% else %}
                 <p>inicio de sesion</p>
@@ -37,6 +36,7 @@
                 </form>
                 <a href="{{ path_for('user.create') }}">crear nueva cuenta</a>
             {% endif %}
+            
         </div>
         <div class="ed-item s-100 l-80">
             {% include 'template/partials/flash.twig' %}

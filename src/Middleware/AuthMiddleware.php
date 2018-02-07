@@ -11,8 +11,7 @@ class AuthMiddleware extends Middleware
 
     public function __invoke(Request $request, Response $response, $next)
     {
-        if (! $this->container->auth->check()) {
-            $this->container->flash->addMessage("info", "Por favor ingresa primero");
+        if ($this->container->auth->check()) {
             return $response->withRedirect($this->container->router->pathFor('home'));
         }
 

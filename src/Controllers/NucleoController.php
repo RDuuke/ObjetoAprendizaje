@@ -72,5 +72,14 @@ class NucleoController extends Controller{
         $this->flash->addMessage('info', "Se Actualizo correctamente el nucleo");
         return $response->withRedirect($this->router->pathFor('nucleo.index'));
     }
+    
+    public function showObjects(Request $request, Response $response)
+    {
+        $router = $request->getAttribute('route');
+        $nucleo = Nucleo::find($router->getArgument('id'));
+        return $this->view->render($response, "nucleo/object.twig", [
+            'nucleo' => $nucleo
+        ]);
+    }
 
 }

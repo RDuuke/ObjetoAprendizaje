@@ -67,5 +67,13 @@ class AreaController extends Controller
         $this->flash->addMessage('info', "Se Actualizo correctamente");
         return $response->withRedirect($this->router->pathFor('area.index'));
     }
+    public function showNucleos(Request $request, Response $response)
+    {
+        $router = $request->getAttribute('route');
+        $area = Area::find($router->getArgument('id'));
+        return $this->view->render($response, "area/nucleo.twig", [
+            'area' => $area
+        ]);
+    }
 
 }

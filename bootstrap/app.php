@@ -77,11 +77,57 @@ $container['view'] = function ($container) {
         $format = \App\Models\Format::find($id);
         return $format->name;
     });
+    
+    $view->getEnvironment()->addGlobal('areas', \App\Models\Area::all());
     $view->getEnvironment()->addFunction($function);
 
     $function = new Twig_SimpleFunction('getNameLicence', function ($id) {
         $licence = \App\Models\Licence::find($id);
         return $licence->name;
+    });
+    
+    $function = new Twig_SimpleFunction('render', function ($object) {
+        $html = '<ul class="pagination">';
+	$data = array(); // start out array
+	$data['pages'] = ceil($object->total() / $object->perPage()); // calc pages
+	$data['si'] = ($object->currentPage() * $object->perPage()) - $object->perPage(); // what row to start at
+	$data['curr_page'] = $object->currentPage(); // Whats the current page
+
+	$max = 7;
+
+	if ($data['curr_page'] < $max) {
+		$sp = 1;
+	} elseif ($data['curr_page'] >= ($data['pages'] - floor($max / 2))) {
+		$sp = $data['pages'] - $max + 1;
+	} elseif ($data['curr_page'] >= $max) {
+		$sp = $data['curr_page'] - floor($max / 2);
+	}
+
+	if ($data['curr_page'] > $max) {
+		$html .= '<li ><a href="' . $object->url(1) . '">First Page</a></li>';
+	}
+
+	for ($i = $sp; $i <= ($sp + $max - 1); $i++) {
+
+		if ($i > $data['pages']) {
+			continue;
+		}
+
+		if ($object->currentPage() == $i) {
+			$html .= ' <li class="active">';
+		} else {
+			$html .= '<li >';
+		}
+		$html .= ' <a href="' . $object->url($i) . '">' . $i . '</a>
+                    </li>';
+
+	}
+
+	if ($data['curr_page'] < ($data['pages'] - floor($max / 2))) {
+		$html .= '<li ><a href="' . $object->url($object->lastPage()) . '">Last Page</a></li>';
+	}
+        $html .= "</ul>";
+	return $html;
     });
     $view->getEnvironment()->addFunction($function);
     return $view;

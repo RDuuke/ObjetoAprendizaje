@@ -1,0 +1,15 @@
+{% extends "template/base.twig" %}
+{% block content %}
+<div class="ed-container">
+        <div class="ed-item s-100">
+            <h5>Nucleos de {{ area.name }}</h5>
+        </div>
+        <div class="ed-container">
+            <ul>
+            {% for n in area.nucleos %}
+                <li> {{ n.name }} (<a href="{{ path_for('nucleo.object.show', {'id' : area.id }) }}">{{n.objetos.count}}</a>)</li>
+            {% endfor %}
+            <ul>
+        </div>    
+    </diV>
+{% endblock %}

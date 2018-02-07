@@ -90,16 +90,8 @@ class ObjectController extends Controller {
     public function show(Request $request, Response $response)
     {
         $router = $request->getAttribute('route');
-        $object = Object::find($router->getArgument('id'));
-        $formats = Format::all();
-        $licences = Licence::all();
-        $nucleos = Nucleo::all();
-        return $this->view->render($response, 'admin/object/formulario.twig', [
-            'nucleo' => $nucleos,
-            'object' => $object,
-            'licences' => $licences,
-            'formats' => $formats
-        ]);
+        return $this->getObject($router->getArgument('id'), "admin/object/formulario.twig", $response);
+
     }
 
     protected function moveUploadedFile($codigo, UploadedFile $file)
@@ -119,5 +111,27 @@ class ObjectController extends Controller {
         $file->moveTo($directory . $filename);
 
         return $savedirectory.$filename;
+    }
+    
+    public function showHome(Request $request, Response $response)
+    {
+        $router = $request->getAttribute('route');
+        return $this->getObject($router->getArgument('id'), "object/index.twig", $response);
+
+    }
+    
+    public function getObject($id, $template, $response)
+    {
+    
+        $object = Object::find($id);
+        $formats = Format::all();
+        $licences = Licence::all();
+        $nucleos = Nucleo::all();
+        return $this->view->render($response, $template, [
+            'nucleos' => $nucleos,
+            'object' => $object,
+            'licences' => $licences,
+            'formats' => $formats
+        ]);
     }
 }

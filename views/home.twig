@@ -1,4 +1,28 @@
 {% extends "template/base.twig" %}
 {% block content %}
-<h3>¡Bienvenid@s al Banco de Objetos Virtuales de Aprendizaje!</h3>
+<div class="ed-container">
+        <div class="ed-item s-100">
+            <h4>Informacion de lorem</h4>
+            <p>Informacion de lorem</p>
+        </div>
+        <div class="ed-container">
+            {% for o in objects %}
+            <div class="ed-item s-100">
+                <h5 class="header"><a href="{{ path_for('object.home.show', {'id' : o.id }) }}">{{ o.titulo }}</a></h5>
+                <div class="card horizontal">
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <h5>Descripcion</h5>
+                            <p>{{ o.descripcion }}</p>
+                            <h5>Palabras claves</h5>
+                            <p>{{ o.tags }}</p>
+                            <h5>Licencia</h5>
+                            <p>{{ getNameLicence(o.licencia) }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>    
+    </diV>
 {% endblock %}

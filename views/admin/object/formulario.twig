@@ -11,8 +11,8 @@
             <label for="titulo">Titulo</label>
         </div>
         <div class="input-field ed-item s-100">
-            <input type="text" name="descripcion" required value="{{ object.descripcion }}">
-            <label for="descripcion">Descripcion</label>
+            <textarea type="text" name="descripcion" required class="materialize-textarea" id="t1"> {{ object.descripcion }} </textarea>
+            <label for="t1">Descripcion</label>
         </div>
         <div class="input-field ed-item s-100">
             <input type="text" name="tags" required value="{{ object.tags }}">
@@ -67,12 +67,12 @@
         </select>
     </div>
         <div class="input-field ed-item s-100">
-            <input type="text" name="instrucciones" required value="{{ object.objeto_tecnhincal.instrucciones }}">
-            <label for="instrucciones">Instrucciones</label>
+            <textarea type="text" name="instrucciones" required class="materialize-textarea" id="t2"> {{ object.objeto_tecnhincal.instrucciones }}</textarea>
+            <label for="t2">Instrucciones</label>
         </div>
         <div class="input-field ed-item s-100">
-            <input type="text" name="requerimientos" required value="{{ object.objeto_tecnhincal.requerimientos }}">
-            <label for="requerimientos">requerimientos</label>
+            <textarea type="text" name="requerimientos" required class="materialize-textarea" id="t3">{{ object.objeto_tecnhincal.requerimientos }}</textarea>
+            <label for="t3">requerimientos</label>
         </div>
         <div class="input-field ed-item s-100">
             <input type="text" name="autor" required value="{{ object.objeto_cycle.autor }}">

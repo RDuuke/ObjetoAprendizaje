@@ -12,7 +12,7 @@ class Area extends Model
     
     public function nucleos()
     {
-        return $this->hasMany("App\Models\Nucleos", "codigo_area", "codigo");
+        return $this->hasMany("\App\Models\Nucleo", "codigo_area", "codigo");
     }
 
 }

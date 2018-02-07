@@ -9,6 +9,7 @@ class Format extends Model
 {
     protected $table = "formatos";
     protected $fillable = ["name"];
+    protected $hidden = ["created_at", "updated_at"];
 
     public function object_technical()
     {
