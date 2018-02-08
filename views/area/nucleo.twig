@@ -1,13 +1,13 @@
 {% extends "template/base.twig" %}
 {% block content %}
-<div class="ed-container">
+<div class="ed-container full">
         <div class="ed-item s-100">
-            <h5>Nucleos de {{ area.name }}</h5>
+            <h5>Nucleos de {{ area.name | capitalize  }}</h5>
         </div>
-        <div class="ed-container">
+        <div class="ed-item s-100">
             <ul>
             {% for n in area.nucleos %}
-                <li> {{ n.name }} (<a href="{{ path_for('nucleo.object.show', {'id' : area.id }) }}">{{n.objetos.count}}</a>)</li>
+                <li> {{ n.name | replace({'.': ''})| capitalize  }} (<a href="{{ path_for('nucleo.object.show', {'area' : area.id, 'nucleo' : n.id }) }}">{{n.objetos.count}}</a>)</li>
             {% endfor %}
             <ul>
         </div>    

@@ -116,7 +116,7 @@ class ObjectController extends Controller {
     public function showHome(Request $request, Response $response)
     {
         $router = $request->getAttribute('route');
-        return $this->getObject($router->getArgument('id'), "object/index.twig", $response);
+        return $this->getObject($router->getArgument('object'), "object/index.twig", $response);
 
     }
     

@@ -2,7 +2,7 @@
     <div class="ed-container">
         <div class="ed-item s-100">
             <div class="card-panel blue">
-            <span class="white-text">{{  flash.getMessage('info') | first }}</span>
+            <span class="white-text">{{  flash.getMessage('info') | first | capitalize  }}</span>
             </div>
         </div>
     </div>
@@ -12,7 +12,7 @@
     <div class="ed-container">
         <div class="ed-item s-100">
             <div class="card-panel red">
-            <span class="white-text">{{  flash.getMessage('error') | first }}</span>
+            <span class="white-text">{{  flash.getMessage('error') | first | capitalize  }}</span>
             </div>
         </div>
     </div>

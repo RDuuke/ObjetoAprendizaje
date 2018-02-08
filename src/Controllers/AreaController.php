@@ -70,7 +70,7 @@ class AreaController extends Controller
     public function showNucleos(Request $request, Response $response)
     {
         $router = $request->getAttribute('route');
-        $area = Area::find($router->getArgument('id'));
+        $area = Area::find($router->getArgument('area'));
         return $this->view->render($response, "area/nucleo.twig", [
             'area' => $area
         ]);

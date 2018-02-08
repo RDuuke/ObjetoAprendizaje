@@ -7,9 +7,9 @@ $app->post("/user/store", "AuthController:store")->setName("user.store");
 $app->post("/auth/signin", "AuthController:signin")->setName("auth.signin");
 $app->get("/auth/signout", "AuthController:signout")->setName("auth.signout");
 
-$app->get("/area/show/{id}", "AreaController:showNucleos")->setName("area.nucleo.show");
-$app->get("/nucleo/show/{id}", "NucleoController:showObjects")->setName("nucleo.object.show");
-$app->get("/object/show/{id}", "ObjectController:showHome")->setName("object.home.show");
+$app->get("/items/{area}", "AreaController:showNucleos")->setName("area.nucleo.show");
+$app->get("/items/{area}/{nucleo}", "NucleoController:showObjects")->setName("nucleo.object.show");
+$app->get("/items/{area}/{nucleo}/{object}", "ObjectController:showHome")->setName("object.home.show");
 
 $app->group("/admin", function (){
    $this->get("", "AdminController:index")->setName("admin.home");

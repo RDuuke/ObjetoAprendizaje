@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="{{ base_url }}/css/ed-grid.min.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
-    <div class="ed-container">
+    <div class="ed-container full">
         <div class="ed-item s-100 l-20">
             <p>Areas de conocimiento</p>
             <ul>
                 {% for a in areas %}
-                    <li><a href="{{ path_for('area.nucleo.show', {'id': a.id}) }}">{{ a.name }}</a></li>
+                    <li><a href="{{ path_for('area.nucleo.show', {'area': a.id}) }}">{{ a.name | capitalize  }}</a></li>
                 {% endfor %}
                 
             </ul>
@@ -40,6 +40,7 @@
         </div>
         <div class="ed-item s-100 l-80">
             {% include 'template/partials/flash.twig' %}
+            {% include 'template/partials/breadcrumbs.twig' %}
             {% block content %}{% endblock %}
         </div>
     </div>

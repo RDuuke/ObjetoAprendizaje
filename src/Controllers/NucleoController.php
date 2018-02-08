@@ -76,7 +76,7 @@ class NucleoController extends Controller{
     public function showObjects(Request $request, Response $response)
     {
         $router = $request->getAttribute('route');
-        $nucleo = Nucleo::find($router->getArgument('id'));
+        $nucleo = Nucleo::find($router->getArgument('nucleo'));
         return $this->view->render($response, "nucleo/object.twig", [
             'nucleo' => $nucleo
         ]);

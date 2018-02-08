@@ -19,6 +19,9 @@ use App\Validation\Validator;
 use App\Middleware\ValidationErrorsMiddleware;
 use Respect\Validation\Validator as v;
 use App\Auth\Auth;
+use App\Models\Area;
+use App\Models\Nucleo;
+use App\Models\Object;
 
 $app = new App([
     'settings' => [
@@ -70,66 +73,75 @@ $container['view'] = function ($container) {
         'check' => $container->auth->check(),
         'user' => $container->auth->user()
     ]);
+    $g = $container->request->getUri();            ;
+    $view->getEnvironment()->addGlobal('request',  $g->getPath());
 
     $view->getEnvironment()->addGlobal('flash', $container->flash);
+    $view->getEnvironment()->addGlobal('areas', \App\Models\Area::all());
 
     $function = new Twig_SimpleFunction('getNameFormat', function ($id) {
         $format = \App\Models\Format::find($id);
         return $format->name;
     });
     
-    $view->getEnvironment()->addGlobal('areas', \App\Models\Area::all());
     $view->getEnvironment()->addFunction($function);
+
 
     $function = new Twig_SimpleFunction('getNameLicence', function ($id) {
         $licence = \App\Models\Licence::find($id);
         return $licence->name;
     });
     
-    $function = new Twig_SimpleFunction('render', function ($object) {
-        $html = '<ul class="pagination">';
-	$data = array(); // start out array
-	$data['pages'] = ceil($object->total() / $object->perPage()); // calc pages
-	$data['si'] = ($object->currentPage() * $object->perPage()) - $object->perPage(); // what row to start at
-	$data['curr_page'] = $object->currentPage(); // Whats the current page
-
-	$max = 7;
-
-	if ($data['curr_page'] < $max) {
-		$sp = 1;
-	} elseif ($data['curr_page'] >= ($data['pages'] - floor($max / 2))) {
-		$sp = $data['pages'] - $max + 1;
-	} elseif ($data['curr_page'] >= $max) {
-		$sp = $data['curr_page'] - floor($max / 2);
-	}
-
-	if ($data['curr_page'] > $max) {
-		$html .= '<li ><a href="' . $object->url(1) . '">First Page</a></li>';
-	}
-
-	for ($i = $sp; $i <= ($sp + $max - 1); $i++) {
-
-		if ($i > $data['pages']) {
-			continue;
-		}
-
-		if ($object->currentPage() == $i) {
-			$html .= ' <li class="active">';
-		} else {
-			$html .= '<li >';
-		}
-		$html .= ' <a href="' . $object->url($i) . '">' . $i . '</a>
-                    </li>';
-
-	}
-
-	if ($data['curr_page'] < ($data['pages'] - floor($max / 2))) {
-		$html .= '<li ><a href="' . $object->url($object->lastPage()) . '">Last Page</a></li>';
-	}
-        $html .= "</ul>";
-	return $html;
-    });
     $view->getEnvironment()->addFunction($function);
+
+    $function = new Twig_SimpleFunction('getId', function ($table, $campo, $value) {
+        $c = "\\App\\Models\\$table";
+        $model = new $c;
+        $data = $model->where($campo, "=", $value)->first();
+        return $data->id;
+    });
+
+    $view->getEnvironment()->addFunction($function);
+    $function = new Twig_SimpleFunction('getData', function ($table, $campo, $value) {
+        $c = "\\App\\Models\\$table";
+        $model = new $c;
+        $data = $model->where($campo, "=", $value)->first();
+        return $data;
+    });
+    
+    $view->getEnvironment()->addFunction($function);
+
+    $function = new Twig_SimpleFunction('breadcrumbs', function () use ($g) {
+        $a= '<nav><div class="nav-wrapper  blue darken-1"><div class="col s12">&nbsp;&nbsp;&nbsp;<a href="/" class="breadcrumb">inicio</a>';
+
+        $items = explode('/', $g->getPath());
+        if (count($items) > 1) {
+            $anchors = array_slice($items, 2);
+            $url = "$g->getHost"."/items";
+            $i = 0;
+            foreach($anchors as $id) {
+                if ($i == 0 ){
+                    $name = Area::find($id)->name;
+                }else if($i == 1) {
+                    $name = Nucleo::find($id)->name;
+                }else {
+                    $name = Object::find($id)->titulo;
+                }
+                $i++;
+                $url .= "/".$id;
+                $a .= '<a href="'.$url.'" class="breadcrumb">'.str_replace(".", "", strtolower($name)).'</a>';
+
+            }
+        }
+           /*<a href="#!" class="breadcrumb">First</a>
+           <a href="#!" class="breadcrumb">Second</a>
+           <a href="#!" class="breadcrumb">Third</a>*/
+        $a .= '</div></div></nav>';
+        return $a;
+    });
+    
+    $view->getEnvironment()->addFunction($function);
+    
     return $view;
 };
 
