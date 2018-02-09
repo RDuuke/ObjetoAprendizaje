@@ -1,6 +1,7 @@
 <?php
 
 $app->get("/", "HomeController:index")->setName("home");
+$app->get("/search", "HomeController:search")->setName('home.search');
 $app->get("/user/create", "AuthController:create")->setName("user.create")->add(new App\Middleware\AuthMiddleware($container));
 $app->post("/user/store", "AuthController:store")->setName("user.store");
 
@@ -44,8 +45,8 @@ $app->group("/admin", function (){
    $this->get("/area/nucleo/show/{id}", "NucleoController:show")->setName("nucleo.show");
    $this->get("/area/nucleo/create", "NucleoController:create")->setName("nucleo.create");
    $this->post("/area/nucleo/update/{id}", "NucleoController:update")->setName("nucleo.update");
-   
-   
+
+
 
 
     $this->get("/object", "AdminController:indexObject")->setName("object.index");

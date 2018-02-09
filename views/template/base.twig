@@ -3,20 +3,24 @@
 <head>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->        
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">        
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <!--Let browser know website is optimized for mobile-->
     <link rel="stylesheet" href="{{ base_url }}/css/ed-grid.min.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
     <div class="ed-container full">
         <div class="ed-item s-100 l-20">
+            <form action="{{ path_for('home.search') }}" method="get">
+                <input type="text" name="search">
+                <button>Buscar</button>
+            </form
             <p>Areas de conocimiento</p>
             <ul>
                 {% for a in areas %}
                     <li><a href="{{ path_for('area.nucleo.show', {'area': a.id}) }}">{{ a.name | capitalize  }}</a></li>
                 {% endfor %}
-                
+
             </ul>
             <hr>
             {% if auth.check %}
@@ -36,7 +40,7 @@
                 </form>
                 <a href="{{ path_for('user.create') }}">crear nueva cuenta</a>
             {% endif %}
-            
+
         </div>
         <div class="ed-item s-100 l-80">
             {% include 'template/partials/flash.twig' %}
