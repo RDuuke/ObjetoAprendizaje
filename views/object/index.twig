@@ -1,4 +1,5 @@
 {% extends "template/base.twig" %}
 {% block content %}
     {{ object.titulo | capitalize }}
+    <a href="{{ path_for('object.dowload', {'id': object.id}) }}" dowload>Descagar achivo</a>
 {% endblock %}

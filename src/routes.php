@@ -1,7 +1,11 @@
 <?php
 
+use App\Models\Object;
+
 $app->get("/", "HomeController:index")->setName("home");
 $app->get("/search", "HomeController:search")->setName('home.search');
+$app->post("/searchAdvanced", "HomeController:searchAdvanced")->setName('home.search.advanced');
+$app->get("/ajaxNucleo", "HomeController:ajaxNucleo");
 $app->get("/user/create", "AuthController:create")->setName("user.create")->add(new App\Middleware\AuthMiddleware($container));
 $app->post("/user/store", "AuthController:store")->setName("user.store");
 
@@ -11,11 +15,16 @@ $app->get("/auth/signout", "AuthController:signout")->setName("auth.signout");
 $app->get("/items/{area}", "AreaController:showNucleos")->setName("area.nucleo.show");
 $app->get("/items/{area}/{nucleo}", "NucleoController:showObjects")->setName("nucleo.object.show");
 $app->get("/items/{area}/{nucleo}/{object}", "ObjectController:showHome")->setName("object.home.show");
+$app->get("/object/dowloading/{id}", "ObjectController:getDownloadAction")->setName("object.dowload");
 
 $app->group("/admin", function (){
    $this->get("", "AdminController:index")->setName("admin.home");
-   $this->get("/user/create", "AuthController:create")->setName("admin.user.create");
-   $this->post("/user/store", "AuthController:store")->setName("admin.user.store");
+   $this->get("/user", "AdminController:indexUser")->setName("admin.user.index");
+   $this->get("/user/create", "AuthController:createAdmin")->setName("admin.user.create");
+   $this->post("/user/store", "AuthController:storeAdmin")->setName("admin.user.store");
+   $this->get("/user/show/{id}", "AuthController:show")->setName("admin.user.show");
+   $this->get("/user/delete/{id}", "AuthController:delete")->setName("admin.user.delete");
+   $this->post("/user/update/{id}", "AuthController:update")->setName("admin.user.update");
 
    $this->get("/licence", "AdminController:indexLicence")->setName("licence.index");
    $this->post("/licence/store", "LicenceController:store")->setName("licence.store");

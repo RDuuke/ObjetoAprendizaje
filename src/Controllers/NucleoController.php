@@ -9,9 +9,9 @@ use App\Models\Area;
 use App\Models\Nucleo;
 
 class NucleoController extends Controller{
-    
+
     public function create(Request $request,Response $response) {
-        $areas = Area::all()->paginate();
+        $areas = Area::all();
         return $this->view->render($response, 'admin/nucleo/formulario.twig', [
             'areas' => $areas
         ]);
@@ -72,7 +72,7 @@ class NucleoController extends Controller{
         $this->flash->addMessage('info', "Se Actualizo correctamente el nucleo");
         return $response->withRedirect($this->router->pathFor('nucleo.index'));
     }
-    
+
     public function showObjects(Request $request, Response $response)
     {
         $router = $request->getAttribute('route');

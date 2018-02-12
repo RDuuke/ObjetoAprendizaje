@@ -14,12 +14,13 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Respect\Validation\Validator as v;
 use Slim\Http\UploadedFile;
+use Slim\Http\Stream;
 
 
 class ObjectController extends Controller {
 
     public function create(Request $request,Response $response) {
-        
+
         $formats = Format::all();
         $licences = Licence::all();
         $nucleos = Nucleo::all();
@@ -29,7 +30,7 @@ class ObjectController extends Controller {
             'nucleos' => $nucleos
         ]);
     }
-    
+
     public function store(Request $request,Response $response) {
         $filesNames = $request->getUploadedFiles();
         $validation = $this->validation->validate($request, [
@@ -57,14 +58,14 @@ class ObjectController extends Controller {
             "licencia" => $request->getParam("licence"),
             "codigo" => Nucleo::find($request->getParam('nucleo'))->codigo
         ]);
-        
+
         objectTechnical::create([
             "formato" => $request->getParam("formato"),
             "instrucciones" => $request->getParam("instrucciones"),
             "requerimientos" => $request->getParam("requerimientos"),
             "codigo_objeto" => $object->id
         ]);
-        
+
         objectCycle::create([
             "autor" => $request->getParam("autor"),
             "entidad" => $request->getParam("entidad"),
@@ -112,17 +113,17 @@ class ObjectController extends Controller {
 
         return $savedirectory.$filename;
     }
-    
+
     public function showHome(Request $request, Response $response)
     {
         $router = $request->getAttribute('route');
         return $this->getObject($router->getArgument('object'), "object/index.twig", $response);
 
     }
-    
+
     public function getObject($id, $template, $response)
     {
-    
+
         $object = Object::find($id);
         $formats = Format::all();
         $licences = Licence::all();
@@ -133,5 +134,70 @@ class ObjectController extends Controller {
             'licences' => $licences,
             'formats' => $formats
         ]);
+    }
+
+    public function getDownloadAction(Request $request, Response $response)
+    {
+        $router = $request->getAttribute('route');
+        $object = Object::find($router->getArgument('id'));
+        $file =  BASE_DIR ."resources". DS . $object->adjunto;
+        $string = trim($object->titulo);
+
+    $string = str_replace(
+        array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+        array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
+        $string
+    );
+
+    $string = str_replace(
+        array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+        array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
+        $string
+    );
+
+    $string = str_replace(
+        array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+        array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
+        $string
+    );
+
+    $string = str_replace(
+        array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+        array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
+        $string
+    );
+
+    $string = str_replace(
+        array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+        array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
+        $string
+    );
+
+    $string = str_replace(
+        array('ñ', 'Ñ', 'ç', 'Ç'),
+        array('n', 'N', 'c', 'C',),
+        $string
+    );
+    $string = str_replace(
+       " ",
+       "",
+        $string
+    );
+        $extension =  end(explode('.',$file));
+        $fileName = $string.".".$extension;
+
+        $fh = fopen($file, "rb");
+        $stream = new Stream($fh);
+
+        return $response->withHeader('Content-Type', 'application/force-download')
+                    ->withHeader('Content-Type', 'application/octet-stream')
+                    ->withHeader('Content-Type', 'application/download')
+                    ->withHeader('Content-Description', 'File Transfer')
+                    ->withHeader('Content-Transfer-Encoding', 'binary')
+                    ->withHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
+                    ->withHeader('Expires', '0')
+                    ->withHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0')
+                    ->withHeader('Pragma', 'public')
+                    ->withBody($stream);
     }
 }

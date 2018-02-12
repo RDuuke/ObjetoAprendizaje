@@ -83,7 +83,7 @@ $container['view'] = function ($container) {
         $format = \App\Models\Format::find($id);
         return $format->name;
     });
-    
+
     $view->getEnvironment()->addFunction($function);
 
 
@@ -91,7 +91,7 @@ $container['view'] = function ($container) {
         $licence = \App\Models\Licence::find($id);
         return $licence->name;
     });
-    
+
     $view->getEnvironment()->addFunction($function);
 
     $function = new Twig_SimpleFunction('getId', function ($table, $campo, $value) {
@@ -108,7 +108,7 @@ $container['view'] = function ($container) {
         $data = $model->where($campo, "=", $value)->first();
         return $data;
     });
-    
+
     $view->getEnvironment()->addFunction($function);
 
     $function = new Twig_SimpleFunction('breadcrumbs', function () use ($g) {
@@ -139,9 +139,9 @@ $container['view'] = function ($container) {
         $a .= '</div></div></nav>';
         return $a;
     });
-    
+
     $view->getEnvironment()->addFunction($function);
-    
+
     return $view;
 };
 

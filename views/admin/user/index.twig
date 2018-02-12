@@ -1,0 +1,30 @@
+{% extends "template/baseAdmin.twig" %}
+{% block content %}
+    <h4>Usuarios</h4>
+    <a href="{{ path_for('admin.user.create') }}">Agregar nuevo usuario</a>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nombre</td>
+                <td>Correo</td>
+                <td>Rol</td>
+                <td>Acciones</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for u in users %}
+            <tr>
+                <td>{{ u.id }}</td>
+                <td>{{ u.name }}</td>
+                <td>{{ u.email }}</td>
+                <td>{{ u.role == '2' ? 'Administrador' : 'Usuario General' }}</td>
+                <td><a href="{{ path_for("admin.user.delete", {'id' : u.id}) }}">Eliminar</a> -
+                    <a href="{{ path_for('admin.user.show', {'id' : u.id}) }}">Editar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

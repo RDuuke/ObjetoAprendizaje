@@ -1,0 +1,56 @@
+{% extends "template/baseAdmin.twig" %}
+
+{% block content %}
+<br><br>
+    <div class="ed-container">
+        <div class="ed-item s-100">
+        {% if user.id %}
+            <form action="{{ path_for('admin.user.update', {'id' : user.id}) }}" method="POST" class="ed-container" autocomplete="off">
+         {% else %}
+            <form action="{{ path_for('admin.user.store') }}" method="POST" class="ed-container" autocomplete="off">
+        {% endif %}
+                <div class="input-field ed-item s-100">
+                    <input type="text" name="name" id="name" class="validate {{ errors.name ? ' invalid' : '' }}" placeholder="Nombre Apellido" value="{{ user.name }}">
+                    <label for="name">Nombres y apellidos</label>
+                    {% if errors.name %}
+                        <span class="red accent-4 white-text" style="padding: .5em;">{{ errors.name | first }}</span>
+                    {% endif %}
+                    <br>
+                    <br>
+                </div>
+                <div class="input-field ed-item s-100">
+                    <input type="email" name="email" id="email" class="validate {{ errors.email ? ' invalid' : '' }}" placeholder="tu@correo.com" value="{{ user.email }}">
+                    <label for="email">Correo electronico</label>
+                    {% if errors.email %}
+                        <span class="red accent-4 white-text" style="padding: .5em;">{{ errors.email | first }}</span>
+                    {% endif %}
+                    <br>
+                    <br>
+                </div>
+                {% if not user.id %}
+                <div class="input-field ed-item s-100">
+                    <input type="password" name="password" id="password" class="validate {{ errors.password ? ' invalid' : '' }}">
+                    <label for="password">Contraseña</label>
+                    {% if errors.password %}
+                        <span class="red accent-4 white-text" style="padding: .5em;">{{ errors.password | first }}</span>
+                    {% endif %}
+                    <br>
+                </div>
+                {% endif %}
+                <select id="role" name="role" class="browser-default">
+                    {% if user.role == 2 %}
+                    <option value="1">Usuario general</option>
+                    <option value="2" selected>Administrador</option>
+                    {% else %}
+                    <option value="1" select>Usuario general</option>
+                    <option value="2">Administrador</option>
+                    {% endif %}
+                </select>
+                <div class="input-field ed-item s-100">
+                    <br>
+                    <button>{{ user.name ? 'Actualizar ' : 'Crear' }} usuario</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

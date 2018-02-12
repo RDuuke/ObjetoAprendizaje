@@ -6,6 +6,7 @@ use App\Models\Area;
 use App\Models\Format;
 use App\Models\Licence;
 use App\Models\Nucleo;
+use App\Models\User;
 use App\Models\Object;
 use Slim\Http\Request;
 use Slim\Http\Response;
@@ -41,7 +42,7 @@ class AdminController extends Controller
             'areas' => $areas
         ]);
     }
-    
+
     public function indexNucleo(Request $request, Response $response)
     {
         $nucleos = Nucleo::all();
@@ -49,12 +50,20 @@ class AdminController extends Controller
             'nucleos' => $nucleos
         ]);
     }
-    
+
     public function indexObject(Request $request, Response $response)
     {
         $objects = Object::all();
         return $this->view->render($response, 'admin/object/index.twig', [
             'objects' => $objects
+        ]);
+    }
+
+    public function indexUser(Request $request, Response $response)
+    {
+        $users = User::all();
+        return $this->view->render($response, 'admin/user/index.twig', [
+            'users' => $users
         ]);
     }
 

@@ -36,8 +36,20 @@ class Object extends Model {
     {
         $s = $search."%";
         return Capsule::table('objetos_cabecera')
-                            ->where('titulo', 'LIKE', $s)
-                            ->orWhere('tags', 'like', "%".$search)
+                            ->where('titulo', 'LIKE', "%".$s)
+                            ->orWhere('tags', 'LIKE', "%".$s)
+                            ->get();
+    }
+
+    public static function searchAdvanced($search)
+    {
+        return Capsule::table('objetos_cabecera')
+                            ->join('nucleo_conocimiento', 'objetos_cabecera.codigo', '=', 'nucleo_conocimiento.codigo')
+                            ->join('areas_conocimientos', 'nucleo_conocimiento.codigo_area', '=', 'areas_conocimientos.codigo')
+                            ->whereIn('objetos_cabecera.codigo', $search['nucleos'])
+                            ->WhereIn('objetos_cabecera.licencia', $search['licences'])
+                            ->Where('areas_conocimientos.id', '=', $search['area'])
+                            ->select('objetos_cabecera.*')
                             ->get();
     }
 }
