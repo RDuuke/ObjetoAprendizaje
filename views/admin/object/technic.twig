@@ -1,0 +1,47 @@
+<li class="step">
+    <div class="step-title waves-effect">Técnica</div>
+        <div class="step-content ed-conatiner">
+        <br>
+        <div class="ed-item s-100">
+            <select id="codigo_area" class="browser-default full" name="technic[formato]">
+            {% for f in formats %}
+                {% set selected = "" %}
+                {% if (l.id == object.objeto_tecnhincal.formato) %}
+                    {% set selected = "selected" %}
+                {% endif %}
+                <option value="{{ f.id }}" {{ selected }}>{{ f.name }}</option>
+            {% endfor %}
+            </select>
+        </div>
+        <br>
+        <br>
+        <div class="input-field ed-item s-100">
+            <input type="text" name="technic[tamano]" required value="{{ object.tamano }}">
+            <label for="tamano">Tamaño</label>
+        </div>
+        <div class="input-field ed-item s-100">
+            <input type="text" name="technic[requerimientos]" value="{{ object.requerimientos }}">
+            <label for="requerimientos">Requerimientos</label>
+        </div>
+        <div class="input-field ed-item s-100">
+            <input type="text" name="technic[instrucciones]" value="{{ object.instrucciones }}">
+            <label for="instrucciones">instrucciones de instalación</label>
+        </div>
+        <div class="input-field ed-item s-100">
+            <input type="text" name="technic[otro_requerimiento]" value="{{ object.otro_requerimiento }}">
+            <label for="otro_requerimiento">Otros reque. de plataforma</label>
+        </div>
+        <div class="input-field ed-item s-100">
+            <input type="text" name="technic[duracion]" value="{{ object.duracion }}">
+            <label for="duracion">Duración</label>
+        </div>
+        <div class="input-field ed-item s-100">
+            <input type="text" name="technic[miniatura]" value="{{ object.miniatura }}">
+            <label for="miniatura">Miniaturas</label>
+        </div>
+        <div class="step-actions">
+            <button class="waves-effect waves-dark btn blue next-step">CONTINUE</button>
+            <button class="waves-effect waves-dark btn-flat previous-step">BACK</button>
+        </div>
+    </div>
+</li>

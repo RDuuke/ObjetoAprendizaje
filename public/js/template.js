@@ -7,11 +7,14 @@ $(document).ready(function() {
         e.preventDefault();
         var id = $(this).val();
         $.get(getUri + "/ajaxNucleo", {'id' : id}).done(function( data ){
-            var d = $.parseJSON(data);
+            var d = JSON.parse(data);
+            console.log(d);
             $("#nucleo_select_search").html('');
             for(var i in d) {
                 $("#nucleo_select_search").append("<option value='"+d[i].codigo+"'>"+d[i].name+"</option>");
             }
         });
     });
+
+    $('.stepper').activateStepper();
 });

@@ -1,0 +1,40 @@
+<li class="step active">
+    <div class="step-title waves-effect">General</div>
+        <div class="step-content ed-conatiner">
+        <div class="input-field ed-item s-100">
+            <input type="text" name="general[titulo]" required value="{{ object.titulo }}">
+            <label for="titulo">Titulo</label>
+        </div>
+        <div class="input-field ed-item s-100">
+            <input type="text" name="general[idioma]" required value="{{ object.idioma }}">
+            <label for="idioma">idioma</label>
+        </div>
+        <div class="input-field ed-item s-100">
+            <textarea type="text" name="general[descripcion]" required class="materialize-textarea" id="t1"> {{ object.descripcion }} </textarea>
+            <label for="t1">Descripcion</label>
+        </div>
+        <div class="input-field ed-item s-100">
+            <input type="text" name="general[tags]" required value="{{ object.tags }}">
+            <label for="tags">Palabras claves</label>
+        </div><div class="input-field ed-item s-100">
+            <input type="text" name="general[cobertura]" required value="{{ object.cobertura }}">
+            <label for="cobertura">Cobertura</label>
+        </div>
+        <div class="input-field ed-item s-100">
+            <input type="text" name="general[estructura]" value="{{ object.estructura }}">
+            <label for="estructura">Estructura</label>
+        </div>
+        <div class="input-field ed-item s-100">
+            <input type="text" name="general[nivel_agregacion]" value="{{ object.nivel_agregacion }}">
+            <label for="nivel_agregacion">Nivel de agregación</label>
+        </div>
+        <div class="input-field ed-item s-100">
+            <input type="text" name="general[pais_proveedor]" value="{{ object.pais_proveedor }}">
+            <label for="pais_proveedor">Pais proveedor</label>
+        </div>
+        <div class="step-actions">
+            <button class="waves-effect waves-dark btn blue next-step">CONTINUE</button>
+            <button class="waves-effect waves-dark btn-flat previous-step">BACK</button>
+        </div>
+    </div>
+</li>

@@ -10,7 +10,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 class Object extends Model {
 
     protected $table = "objetos_cabecera";
-    protected $fillable = ["titulo", "adjunto", "descripcion", "tags", "licencia", "descargas", "codigo"];
+    protected $fillable = ["titulo", "adjunto", "descripcion", "tags", "licencia", "descargas", "codigo", "idioma", "cobertura", "estructura", "nivel_agregacion", "pais_proveedor"];
 
     public function licencia()
     {
@@ -31,6 +31,20 @@ class Object extends Model {
     {
         return $this->hasOne("App\Models\objectCycle", "codigo_objeto", 'id');
     }
+    public function objeto_copyrigth()
+    {
+        return $this->hasOne("App\Models\objectCopyRigth", "codigo_objeto", 'id');
+    }
+
+    public function objeto_education()
+    {
+        return $this->hasOne("App\Models\objectEducation", "codigo_objeto", 'id');
+    }
+    public function objeto_meta()
+    {
+        return $this->hasOne("App\Models\objectMeta", "codigo_objeto", 'id');
+    }
+
 
     public static function searchTagsAndTitle($search)
     {

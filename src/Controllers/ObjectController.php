@@ -10,6 +10,9 @@ use App\Models\Nucleo;
 use App\Models\Object;
 use App\Models\objectCycle;
 use App\Models\objectTechnical;
+use App\Models\objectEducation;
+use App\Models\objectMeta;
+use App\Models\objectCopyRigth;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Respect\Validation\Validator as v;
@@ -32,8 +35,9 @@ class ObjectController extends Controller {
     }
 
     public function store(Request $request,Response $response) {
-        $filesNames = $request->getUploadedFiles();
-        $validation = $this->validation->validate($request, [
+
+        //$filesNames = $request->getUploadedFiles();
+        /*$validation = $this->validation->validate($request, [
             "titulo" => v::notEmpty(),
             "descripcion" => v::notEmpty(),
             "tags" => v::notEmpty(),
@@ -49,30 +53,29 @@ class ObjectController extends Controller {
         if ($validation->failed()) {
             $this->flash->addMessage('error', "No sé creo correctamente el objeto");
             return $response->withRedirect($this->router->pathFor('object.create'));
-        }
-        $object = Object::create([
-            "titulo" => $request->getParam("titulo"),
-            "descripcion" => $request->getParam("descripcion"),
-            "tags" => $request->getParam("tags"),
-            "adjunto" => $this->moveUploadedFile($request->getParam('nucleo'), $filesNames['adjunto']),
-            "licencia" => $request->getParam("licence"),
-            "codigo" => Nucleo::find($request->getParam('nucleo'))->codigo
-        ]);
+        }*/
+        $object = Object::create($request->getParam('general'));
+        $technic = $request->getParam('technic');
+        $technic["codigo_objeto"] = $object->id;
+        objectTechnical::create($technic);
 
-        objectTechnical::create([
-            "formato" => $request->getParam("formato"),
-            "instrucciones" => $request->getParam("instrucciones"),
-            "requerimientos" => $request->getParam("requerimientos"),
-            "codigo_objeto" => $object->id
-        ]);
+        $cycle = $request->getParam('cycle');
+        $cycle["codigo_objeto"] = $object->id;
+        objectCycle::create($cycle);
 
-        objectCycle::create([
-            "autor" => $request->getParam("autor"),
-            "entidad" => $request->getParam("entidad"),
-            "version" => $request->getParam("version"),
-            "fecha" => $request->getParam("fecha"),
-            "codigo_objeto" => $object->id
-        ]);
+        $copyright = $request->getParam('copyright');
+        $copyright["codigo_objeto"] = $object->id;
+        objectCopyRigth::create($copyright);
+
+        $education = $request->getParam('education');
+        $education["codigo_objeto"] = $object->id;
+        objectEducation::create($education);
+
+        $meta = $request->getParam('meta');
+        $meta["codigo_objeto"] = $object->id;
+        objectMeta::create($meta);
+
+
         $this->flash->addMessage('info', "Se creo correctamente el objeto");
         return $response->withRedirect($this->router->pathFor('object.index'));
     }

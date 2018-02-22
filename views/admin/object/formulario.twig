@@ -6,18 +6,14 @@
     {% else %}
         <form action="{{ path_for('object.store') }}" method="post" class="ed-container" autocomplete="off" enctype="multipart/form-data">
     {% endif %}
-        <div class="input-field ed-item s-100">
-            <input type="text" name="titulo" required value="{{ object.titulo }}">
-            <label for="titulo">Titulo</label>
-        </div>
-        <div class="input-field ed-item s-100">
-            <textarea type="text" name="descripcion" required class="materialize-textarea" id="t1"> {{ object.descripcion }} </textarea>
-            <label for="t1">Descripcion</label>
-        </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="tags" required value="{{ object.tags }}">
-            <label for="tags">Tags</label>
-        </div>
+    <ul class="stepper full-w">
+        {% include "admin/object/general.twig" %}
+        {% include "admin/object/cycle.twig" %}
+        {% include "admin/object/meta.twig" %}
+        {% include "admin/object/technic.twig" %}
+        {% include "admin/object/education.twig" %}
+        {% include "admin/object/copyright.twig" %}
+    <!--
         <div class="input-field ed-item s-100">
             <label for="_licence">Seleccione la licencia</label>
             <br>
@@ -95,7 +91,8 @@
         </div>
         <div class="input-field ed-item s-100">
             <br>
-            <button>{{ object.title ? 'Actualizar ' : 'Crear' }} objeto</button>
-        </div>
+
+        </div>-->
+    </ul>
     </form>
 {% endblock %}

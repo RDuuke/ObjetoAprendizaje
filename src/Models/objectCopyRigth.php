@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class objectCycle extends Model{
+class objectCopyRigth extends Model{
 
-    protected $table = "objetos_ciclo";
+    protected $table = "objetos_derecho";
 
-    protected $fillable = ['codigo_objeto', 'version', 'estado', 'contribuyente', 'cambio_registro'];
+    protected $fillable = ['codigo_objeto', 'costo', 'poseedor_derecho_patrimonial', 'descripcion'];
 
     public function objeto()
     {

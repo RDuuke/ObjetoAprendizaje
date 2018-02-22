@@ -53,7 +53,8 @@ class HomeController extends Controller
     public function ajaxNucleo(Request $request, Response $response)
     {
         $id = $request->getQueryParam('id');
-        $nucleos = Nucleo::where("codigo_area", "=", $id)->get()->toJson();
-        return $response->withJson($nucleos);
+        $nucleos = json_encode(Nucleo::where("codigo_area", "=", $id)->get()->toArray());
+        echo $nucleos;
+        return true;
     }
 }

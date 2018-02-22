@@ -1,0 +1,7 @@
+.full-w
+{
+    width: 100% !important;
+}
+label{
+    text-transform: capitalize;
+}
