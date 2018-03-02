@@ -5,9 +5,22 @@
             <input type="text" name="education[tipo_interactividad]" required value="{{ object.tipo_interactividad }}">
             <label for="tipo_interactividad">Tipo de interactividad</label>
         </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="education[tipo_recurso]" required value="{{ object.tipo_recurso }}">
+        <div class="ed-item s-100">
+        <br>
+            <!--<input type="text" name="education[tipo_recurso]" required value="{{ object.tipo_recurso }}">-->
             <label for="tipo_recurso">Tipo de recurso</label>
+            <select id="tipo_recurso" class="browser-default full" name="education[tipo_recurso]">
+                <option value="simuladores">Simuladores</option>
+                <option value="multimedia">Multimedia</option>
+                <option value="tutoriales">Tutoriales</option>
+                <option value="imágenes en movimiento">Imágenes en movimiento</option>
+                <option value="imágenes fijas">Imágenes fijas</option>
+                <option value="fotografías">Fotografías</option>
+                <option value="ilustraciones">Ilustraciones</option>
+                <option value="redes o mapas conceptuales">Redes o Mapas conceptuales</option>
+                <option value="documento texto, tabla, gráfico">Documento texto, Tabla, gráfico</option>
+            </select>
+        <br>
         </div>
         <div class="input-field ed-item s-100">
             <input type="text" name="education[nivel_interactividad]" required value="{{ object.nivel_interactividad }}">

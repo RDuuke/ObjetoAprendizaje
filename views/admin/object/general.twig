@@ -13,10 +13,29 @@
             <textarea type="text" name="general[descripcion]" required class="materialize-textarea" id="t1"> {{ object.descripcion }} </textarea>
             <label for="t1">Descripcion</label>
         </div>
+        <div class="ed-item s-100">
+            <label for="area_select_search">Area de conocimiento</label>
+            <select id="area_select_search" class="browser-default full" name="area_select_search">
+                <option value="">Areas</option>
+            {% for a in areas %}
+                {% set seaected = "" %}
+                <option value="{{ a.codigo }}" {{ selected }}>{{ a.name }}</option>
+            {% endfor %}
+            </select>
+        </div>
+        <br>
+        <div class="ed-item s-100">
+            <label for="nucleo_select_search">Nucleo de conocimiento</label>
+            <select id="nucleo_select_search" class="browser-default full" name="nucleo_select_search">
+                <option value="">Nucleos</option>
+            </select>
+        </div>
+        <br>
         <div class="input-field ed-item s-100">
             <input type="text" name="general[tags]" required value="{{ object.tags }}">
             <label for="tags">Palabras claves</label>
-        </div><div class="input-field ed-item s-100">
+        </div>
+        <div class="input-field ed-item s-100">
             <input type="text" name="general[cobertura]" required value="{{ object.cobertura }}">
             <label for="cobertura">Cobertura</label>
         </div>

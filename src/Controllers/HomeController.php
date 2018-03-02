@@ -57,4 +57,13 @@ class HomeController extends Controller
         echo $nucleos;
         return true;
     }
+
+    public function ajaxNucleoTemplate(Request $request, Response $response)
+    {
+        $id = $request->getQueryParam('id');
+        $area = Area::find($id);
+        return $this->view->render($response, "area/template_ajax.twig", [
+            'area' => $area
+        ]);
+    }
 }

@@ -7,9 +7,9 @@
         <div class="ed-item s-100">
             <ul>
             {% for o in nucleo.objetos %}
-                <li><a href="{{ path_for('object.home.show', {'area' : nucleo.area.id, 'nucleo' : nucleo.id, 'object': o.id }) }}">{{ o.titulo | capitalize | replace({'.' : ''})  }}</a></li>
+                <li><a href="{{ path_for('object.home.show', {'area' : nucleo.area.id, 'nucleo' : nucleo.id, 'object': o.codigo_objeto }) }}">{{ o.objeto.titulo | capitalize | replace({'.' : ''})  }}</a></li>
             {% endfor %}
             </ul>
-        </div>    
+        </div>
     </diV>
 {% endblock %}

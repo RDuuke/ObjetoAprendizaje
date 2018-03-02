@@ -20,7 +20,7 @@ class Nucleo extends Model {
 
     public function objetos()
     {
-        return $this->hasMany("\App\Models\Object", "codigo", "codigo");
+        return $this->hasMany("\App\Models\objectRelation", "codigo_area", "codigo");
     }
 
     public function getCodigoArea($codigo)

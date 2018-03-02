@@ -6,6 +6,7 @@ $app->get("/", "HomeController:index")->setName("home");
 $app->get("/search", "HomeController:search")->setName('home.search');
 $app->post("/searchAdvanced", "HomeController:searchAdvanced")->setName('home.search.advanced');
 $app->get("/ajaxNucleo", "HomeController:ajaxNucleo");
+$app->get("/ajaxNucleoTemplate", "HomeController:ajaxNucleoTemplate");
 $app->get("/user/create", "AuthController:create")->setName("user.create")->add(new App\Middleware\AuthMiddleware($container));
 $app->post("/user/store", "AuthController:store")->setName("user.store");
 

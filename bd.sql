@@ -94,10 +94,8 @@ REPLACE INTO `nucleo_conocimiento` (`id`, `name`, `codigo`, `codigo_area`, `crea
 CREATE TABLE IF NOT EXISTS `objetos_cabecera` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `adjunto` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `descripcion` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `tags` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
-  `licencia` int(11) DEFAULT NULL,
   `descargas` int(11) NOT NULL DEFAULT '0',
   `idioma` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cobertura` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -106,17 +104,15 @@ CREATE TABLE IF NOT EXISTS `objetos_cabecera` (
   `pais_proveedor` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `FK_objeto_cabecera_licencias` (`licencia`),
-  CONSTRAINT `FK_objeto_cabecera_licencias` FOREIGN KEY (`licencia`) REFERENCES `licencias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla bancoobjetos.objetos_cabecera: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla bancoobjetos.objetos_cabecera: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `objetos_cabecera` DISABLE KEYS */;
-REPLACE INTO `objetos_cabecera` (`id`, `titulo`, `adjunto`, `descripcion`, `tags`, `licencia`, `descargas`, `idioma`, `cobertura`, `estructura`, `nivel_agregacion`, `pais_proveedor`, `created_at`, `updated_at`) VALUES
-	(6, 'Mapa conceptual: Derechos de autor ', '11\\1\\d1323ede3f56211c.jpg', 'Mapa conceptual que muestra una alternativa de licenciamiento de contenidos educativos, para autores que deseen ceder algunos de sus derechos de autor mediante la licencia Creative Commons, con el fin de contribuir a la difusión de conocimiento.', 'derechos de autor, licenciamiento, producción intelectual, Creatice Commons', 3, 0, NULL, NULL, NULL, NULL, NULL, '2018-02-06 00:26:14', '2018-02-06 00:26:14'),
-	(7, 'Conceptualización y manipulación en las técnicas de ilustración para docentes que enseñan en institutos infantiles', '28\\2\\54d97dffda882ccc.jpg', '  Una multimedia que recopila información y ejercicios sobre diferentes técnicas de ilustración, con el fin de hacer que los métodos de ilustración básicos puedan ser enseñados de manera practica en otros ámbitos como los infantiles.', 'Técnicas de ilustración, enseñanza infantil, ilustración, educación profesoral, teacher education, ilustration, children’s education', 1, 0, NULL, NULL, NULL, NULL, NULL, '2018-02-12 20:46:46', '2018-02-12 20:46:46'),
-	(11, 'Como ser Emprendedor', '', ' El objeto brindar a los estudiantes una visión general de los que es ser emprendedor, contiene las características de un emprendedor y como seleccionar una idea de negocios.', 'Emprendedor, características del emprendedor, selección de idea de negocios', 1, 0, 'Español', 'Cobertura', 'Estructura', 'Nivel de agregación', 'País proveedor', '2018-02-22 15:04:34', '2018-02-22 15:04:34');
+REPLACE INTO `objetos_cabecera` (`id`, `titulo`, `descripcion`, `tags`, `descargas`, `idioma`, `cobertura`, `estructura`, `nivel_agregacion`, `pais_proveedor`, `created_at`, `updated_at`) VALUES
+	(6, 'Mapa conceptual: Derechos de autor ', 'Mapa conceptual que muestra una alternativa de licenciamiento de contenidos educativos, para autores que deseen ceder algunos de sus derechos de autor mediante la licencia Creative Commons, con el fin de contribuir a la difusión de conocimiento.', 'derechos de autor, licenciamiento, producción intelectual, Creatice Commons', 0, NULL, NULL, NULL, NULL, NULL, '2018-02-06 00:26:14', '2018-02-06 00:26:14'),
+	(7, 'Conceptualización y manipulación en las técnicas de ilustración para docentes que enseñan en institutos infantiles', '  Una multimedia que recopila información y ejercicios sobre diferentes técnicas de ilustración, con el fin de hacer que los métodos de ilustración básicos puedan ser enseñados de manera practica en otros ámbitos como los infantiles.', 'Técnicas de ilustración, enseñanza infantil, ilustración, educación profesoral, teacher education, ilustration, children’s education', 0, NULL, NULL, NULL, NULL, NULL, '2018-02-12 20:46:46', '2018-02-12 20:46:46'),
+	(18, 'Ecotecnología', '  Es un documento con algunas generalidades acerca de la Ecotecnología, que se refiere las formas que ha hecho el hombre para mantener un el medio ambiente en concordancia con la tecnología', 'ecotecnologia; sellos verdes; casa ecológicas, alternativas de energía', 0, 'Español', 'cobertura', '', '', '', '2018-02-27 18:03:22', '2018-02-27 18:03:22');
 /*!40000 ALTER TABLE `objetos_cabecera` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bancoobjetos.objetos_ciclo
@@ -134,35 +130,37 @@ CREATE TABLE IF NOT EXISTS `objetos_ciclo` (
   CONSTRAINT `FK_objeto_ciclo_objeto_cabecera` FOREIGN KEY (`codigo_objeto`) REFERENCES `objetos_cabecera` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla bancoobjetos.objetos_ciclo: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla bancoobjetos.objetos_ciclo: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `objetos_ciclo` DISABLE KEYS */;
 REPLACE INTO `objetos_ciclo` (`id`, `codigo_objeto`, `version`, `estado`, `contribuyente`, `cambio_registro`, `created_at`, `updated_at`) VALUES
-	(5, 11, '1.0', 'Estado', 'Hernández García, Neyla Ramírez Ballesteros Luz Pi', 'Cambio Registro', '2018-02-22 20:53:13', '2018-02-22 20:53:13');
+	(5, 18, '1.0', '', '', '', '2018-02-27 18:03:22', '2018-02-27 18:03:22');
 /*!40000 ALTER TABLE `objetos_ciclo` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bancoobjetos.objetos_derecho
 CREATE TABLE IF NOT EXISTS `objetos_derecho` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo_objeto` int(11) NOT NULL,
-  `costo` varchar(50) COLLATE utf8_unicode_ci DEFAULT 'No especificado',
+  `costo` int(11) NOT NULL,
   `poseedor_derecho_patrimonial` varchar(50) COLLATE utf8_unicode_ci DEFAULT 'No especificado',
   `descripcion` varchar(50) COLLATE utf8_unicode_ci DEFAULT 'No especificado',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK_objetos_derecho_objetos_cabecera` (`codigo_objeto`),
+  KEY `FK_objetos_derecho_licencias` (`costo`),
+  CONSTRAINT `FK_objetos_derecho_licencias` FOREIGN KEY (`costo`) REFERENCES `licencias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_objetos_derecho_objetos_cabecera` FOREIGN KEY (`codigo_objeto`) REFERENCES `objetos_cabecera` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla bancoobjetos.objetos_derecho: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla bancoobjetos.objetos_derecho: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `objetos_derecho` DISABLE KEYS */;
 REPLACE INTO `objetos_derecho` (`id`, `codigo_objeto`, `costo`, `poseedor_derecho_patrimonial`, `descripcion`, `created_at`, `updated_at`) VALUES
-	(0, 11, 'Libre', 'Universidad TAL', 'Esta obra es publicada bajo la licencia Creative C', '2018-02-22 20:53:13', '2018-02-22 20:53:13');
+	(4, 18, 1, '', 'Descripcion', '2018-02-27 18:03:22', '2018-02-27 18:03:22');
 /*!40000 ALTER TABLE `objetos_derecho` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bancoobjetos.objetos_educacional
 CREATE TABLE IF NOT EXISTS `objetos_educacional` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo_objeto` int(11) NOT NULL,
   `tipo_interactividad` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No especificado',
   `tipo_recurso` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No especificado',
@@ -179,12 +177,12 @@ CREATE TABLE IF NOT EXISTS `objetos_educacional` (
   PRIMARY KEY (`id`),
   KEY `FK_objetos_educacional_objetos_cabecera` (`codigo_objeto`),
   CONSTRAINT `FK_objetos_educacional_objetos_cabecera` FOREIGN KEY (`codigo_objeto`) REFERENCES `objetos_cabecera` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Volcando datos para la tabla bancoobjetos.objetos_educacional: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `objetos_educacional` DISABLE KEYS */;
 REPLACE INTO `objetos_educacional` (`id`, `codigo_objeto`, `tipo_interactividad`, `tipo_recurso`, `nivel_interactividad`, `usuario_final`, `densidad_semantica`, `rangos_edad`, `contexto`, `dificultad`, `tiempo_aprendizaje`, `descripcion`, `created_at`, `updated_at`) VALUES
-	(0, 11, 'Combinado', 'Auto evaluación Cuestionario Texto narrativo', 'Nivel de interactividad', 'No especificado', 'Densidad semántica', '10-20', 'Educación Superior', 'Bajo', '20horas', 'No especificado', '2018-02-22 20:53:13', '2018-02-22 20:53:13');
+	(1, 18, 'Combinada', 'simuladores', 'Baja', 'No especificado', '', '', '', 'Baja', '', 'Descripcion', '2018-02-27 18:03:22', '2018-02-27 18:03:22');
 /*!40000 ALTER TABLE `objetos_educacional` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bancoobjetos.objetos_meta
@@ -199,30 +197,34 @@ CREATE TABLE IF NOT EXISTS `objetos_meta` (
   PRIMARY KEY (`id`),
   KEY `FK_objeto_meta_objetos_cabecera` (`codigo_objeto`),
   CONSTRAINT `FK_objeto_meta_objetos_cabecera` FOREIGN KEY (`codigo_objeto`) REFERENCES `objetos_cabecera` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Volcando datos para la tabla bancoobjetos.objetos_meta: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `objetos_meta` DISABLE KEYS */;
 REPLACE INTO `objetos_meta` (`id`, `codigo_objeto`, `contribuyente`, `esquema_metadato`, `idioma`, `created_at`, `updated_at`) VALUES
-	(1, 11, 'No especificado', 'Esquema de metadato', 'Idioma', '2018-02-22 20:53:13', '2018-02-22 20:53:13');
+	(4, 18, 'Universidad', 'No especificado', '', '2018-02-27 18:03:22', '2018-02-27 18:03:22');
 /*!40000 ALTER TABLE `objetos_meta` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bancoobjetos.objetos_relacion
 CREATE TABLE IF NOT EXISTS `objetos_relacion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo_objeto` int(11) NOT NULL,
-  `codigo` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
+  `codigo_area` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK_objetos_relacion_objetos_cabecera` (`codigo_objeto`),
-  KEY `FK_objetos_relacion_nucleo_conocimiento` (`codigo`),
-  CONSTRAINT `FK_objetos_relacion_nucleo_conocimiento` FOREIGN KEY (`codigo`) REFERENCES `nucleo_conocimiento` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `FK_objetos_relacion_nucleo_conocimiento` (`codigo_area`),
+  CONSTRAINT `FK_objetos_relacion_nucleo_conocimiento` FOREIGN KEY (`codigo_area`) REFERENCES `nucleo_conocimiento` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_objetos_relacion_objetos_cabecera` FOREIGN KEY (`codigo_objeto`) REFERENCES `objetos_cabecera` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Volcando datos para la tabla bancoobjetos.objetos_relacion: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `objetos_relacion` DISABLE KEYS */;
+REPLACE INTO `objetos_relacion` (`id`, `codigo_objeto`, `codigo_area`, `created_at`, `updated_at`) VALUES
+	(1, 18, '28', '2018-02-27 18:03:22', '2018-02-27 18:03:22'),
+	(2, 6, '11', '2018-03-02 15:32:38', '2018-03-02 15:32:38'),
+	(3, 7, '12', '2018-03-02 15:32:48', '2018-03-02 15:32:48');
 /*!40000 ALTER TABLE `objetos_relacion` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bancoobjetos.objetos_tecnico
@@ -246,12 +248,12 @@ CREATE TABLE IF NOT EXISTS `objetos_tecnico` (
   KEY `FK_objeto_tecnico_formato` (`formato`),
   CONSTRAINT `FK_objeto_tecnico_formato` FOREIGN KEY (`formato`) REFERENCES `formatos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_objeto_tecnico_objeto_cabecera` FOREIGN KEY (`codigo_objeto`) REFERENCES `objetos_cabecera` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla bancoobjetos.objetos_tecnico: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla bancoobjetos.objetos_tecnico: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `objetos_tecnico` DISABLE KEYS */;
 REPLACE INTO `objetos_tecnico` (`id`, `codigo_objeto`, `formato`, `instrucciones`, `requerimientos`, `tamano`, `ubicacion`, `otro_requerimiento`, `duracion`, `miniatura`, `imagenes_previas`, `imagenes_posteriores`, `created_at`, `updated_at`) VALUES
-	(5, 11, 6, 'Paso 1: Descargue el archivo comprimido " Como-se-emprendedor.zip" y guárdelo en su PC.  Paso 2: descomprima el paquete .zip en su disco duro  Paso 3: explore el directorio resultante del paso anterior, ubique y ejecute el archivo "index.html"  paso ', 'No especificado', '24kb', 'src://carpeta/objeto.zip', 'Otros requerimientos', 'Duracion', 'src/miniatura.jpg', 'No especificado', 'No especificado', '2018-02-22 20:53:13', '2018-02-22 20:53:13');
+	(9, 18, 3, '', 'No especificado', '0 kbytes', '28\\2\\81158b8cc178f22e.zip', '', '', 'No especificada', 'No especificado', 'No especificado', '2018-02-27 18:03:22', '2018-02-27 18:03:22');
 /*!40000 ALTER TABLE `objetos_tecnico` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bancoobjetos.roles

@@ -112,7 +112,7 @@ $container['view'] = function ($container) {
     $view->getEnvironment()->addFunction($function);
 
     $function = new Twig_SimpleFunction('breadcrumbs', function () use ($g) {
-        $a= '<nav><div class="nav-wrapper  blue darken-1"><div class="col s12">&nbsp;&nbsp;&nbsp;<a href="/" class="breadcrumb">inicio</a>';
+        $a= '<nav><div class="nav-wrapper  blue darken-1"><div class="col s12">&nbsp;&nbsp;&nbsp;<a href="/" class="breadcrumb">Principal</a>';
 
         $items = explode('/', $g->getPath());
         if (count($items) > 1) {
@@ -121,10 +121,11 @@ $container['view'] = function ($container) {
             $i = 0;
             foreach($anchors as $id) {
                 if ($i == 0 ){
-                    $name = Area::find($id)->name;
+                    $name = "&Aacute;reas de conocimiento";
                 }else if($i == 1) {
                     $name = Nucleo::find($id)->name;
                 }else {
+                    break;
                     $name = Object::find($id)->titulo;
                 }
                 $i++;

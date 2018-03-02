@@ -10,6 +10,6 @@
                 <li> {{ n.name | replace({'.': ''})| capitalize  }} (<a href="{{ path_for('nucleo.object.show', {'area' : area.id, 'nucleo' : n.id }) }}">{{n.objetos.count}}</a>)</li>
             {% endfor %}
             <ul>
-        </div>    
+        </div>
     </diV>
 {% endblock %}

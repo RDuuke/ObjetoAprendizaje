@@ -13,6 +13,7 @@ use App\Models\objectTechnical;
 use App\Models\objectEducation;
 use App\Models\objectMeta;
 use App\Models\objectCopyRigth;
+use App\Models\objectRelation;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Respect\Validation\Validator as v;
@@ -26,11 +27,11 @@ class ObjectController extends Controller {
 
         $formats = Format::all();
         $licences = Licence::all();
-        $nucleos = Nucleo::all();
+        $areas = Area::all();
         return $this->view->render($response, 'admin/object/formulario.twig', [
             'formats' => $formats,
             'licences' => $licences,
-            'nucleos' => $nucleos
+            'areas' => $areas
         ]);
     }
 
@@ -54,9 +55,24 @@ class ObjectController extends Controller {
             $this->flash->addMessage('error', "No sé creo correctamente el objeto");
             return $response->withRedirect($this->router->pathFor('object.create'));
         }*/
+
+        $files = $request->getUploadedFiles();
+        if (empty($files['archive'])){
+            throw new \Exception("No archive object");
+        }else{
+            $ubicacion = $this->moveUploadedFile($request->getParam('nucleo_select_search'), $files['archive']);
+        }
+        if(empty($file["miniatura"])) {
+            $miniatura = "No especificada";
+        }else {
+            $miniatura = $this->moveUploadedFile($request->getParam('nucleo_select_search'), $files['miniatura']);
+        }
+
         $object = Object::create($request->getParam('general'));
         $technic = $request->getParam('technic');
         $technic["codigo_objeto"] = $object->id;
+        $technic["miniatura"] = $miniatura;
+        $technic["ubicacion"] = $ubicacion;
         objectTechnical::create($technic);
 
         $cycle = $request->getParam('cycle');
@@ -74,6 +90,11 @@ class ObjectController extends Controller {
         $meta = $request->getParam('meta');
         $meta["codigo_objeto"] = $object->id;
         objectMeta::create($meta);
+
+        $relational['codigo_objeto'] = $object->id;
+        $relational['codigo_area'] = Nucleo::find($request->getParam('nucleo_select_search'))->codigo;
+        objectRelation::create($relational);
+
 
 
         $this->flash->addMessage('info', "Se creo correctamente el objeto");

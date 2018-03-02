@@ -1,12 +1,22 @@
 <li class="step">
     <div class="step-title waves-effect">Técnica</div>
         <div class="step-content ed-conatiner">
+         <div class="input-field ed-item s-100 file-field">
+            <div class="btn">
+                <span>Archivo</span>
+                <input type="file" name="archive" class="archive" accept=".zip, .rar">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+            </div>
+        </div>
         <br>
         <div class="ed-item s-100">
-            <select id="codigo_area" class="browser-default full" name="technic[formato]">
+            <label for="formato">Formato del archivo</label>
+            <select id="formato" class="browser-default full" name="technic[formato]">
             {% for f in formats %}
                 {% set selected = "" %}
-                {% if (l.id == object.objeto_tecnhincal.formato) %}
+                {% if (f.id == object.objeto_tecnhincal.formato) %}
                     {% set selected = "selected" %}
                 {% endif %}
                 <option value="{{ f.id }}" {{ selected }}>{{ f.name }}</option>
@@ -16,7 +26,7 @@
         <br>
         <br>
         <div class="input-field ed-item s-100">
-            <input type="text" name="technic[tamano]" required value="{{ object.tamano }}">
+            <input type="text" name="technic[tamano]" class="tamano" required value="{{ object.tamano }}">
             <label for="tamano">Tamaño</label>
         </div>
         <div class="input-field ed-item s-100">
@@ -35,9 +45,14 @@
             <input type="text" name="technic[duracion]" value="{{ object.duracion }}">
             <label for="duracion">Duración</label>
         </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="technic[miniatura]" value="{{ object.miniatura }}">
-            <label for="miniatura">Miniaturas</label>
+        <div class="input-field ed-item s-100 file-field">
+            <div class="btn">
+                <span>Miniatura</span>
+                <input type="file" name="miniatura" accept="image/*">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+            </div>
         </div>
         <div class="step-actions">
             <button class="waves-effect waves-dark btn blue next-step">CONTINUE</button>

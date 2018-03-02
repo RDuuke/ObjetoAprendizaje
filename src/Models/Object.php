@@ -10,7 +10,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 class Object extends Model {
 
     protected $table = "objetos_cabecera";
-    protected $fillable = ["titulo", "adjunto", "descripcion", "tags", "licencia", "descargas", "codigo", "idioma", "cobertura", "estructura", "nivel_agregacion", "pais_proveedor"];
+    protected $fillable = ["titulo", "adjunto", "descripcion", "tags", "licencia", "descargas",  "idioma", "cobertura", "estructura", "nivel_agregacion", "pais_proveedor"];
 
     public function licencia()
     {
@@ -19,7 +19,7 @@ class Object extends Model {
 
     public function nucleo()
     {
-        return $this->belongsTo("App\Models\Nucleo", "codigo");
+        return $this->belongsTo("App\Models\objectRelation", "codigo_objeto");
     }
 
     public function objeto_tecnhincal()

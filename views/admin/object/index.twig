@@ -2,72 +2,93 @@
 {% block content %}
     <h4>Objetos</h4>
     <a href="{{ path_for('object.create') }}">Agregar nuevo.</a>
-    <div class="ed-container">
+    <br><br>
+    <div class="ed-container full">
         <ul class="collapsible ed-item s-100" data-collapsible="accordion">
             {% for o in objects %}
             <li>
                 <div class="collapsible-header">{{ o.titulo }} <span class="badge">
                         <a href="{{ path_for('object.delete', {'id' : o.id }) }}">Eliminar</a> - <a href="{{ path_for('object.show', {'id' : o.id }) }}">Editar</a></span></div>
                 <div class="collapsible-body">
-                    <h5>Datos basicos</h5>
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Descripcion</td>
-                                <td>Adjunto</td>
-                                <td>Licencia</td>
-                                <td>Tags</td>
-                                <td># de descargas</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{ o.descripcion }}</td>
-                                <td>{{ o.adjunto }}</td>
-                                <td>{{ getNameLicence(o.licencia) }}</td>
-                                <td>{{ o.tags }}</td>
-                                <td>{{ o.descargas }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <h5>Datos tecnicos</h5>
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Formato</td>
-                                <td>Instrucciones</td>
-                                <td>Requerimientos</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{ getNameFormat(o.objeto_tecnhincal.formato) }}</td>
-                                <td>{{ o.objeto_tecnhincal.instrucciones }}</td>
-                                <td>{{ o.objeto_tecnhincal.requerimientos }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <h5>Datos ciclo de vida</h5>
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>Autor</td>
-                                <td>Entidad</td>
-                                <td>Version</td>
-                                <td>Fecha</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{ o.objeto_cycle.autor }}</td>
-                                <td>{{ o.objeto_cycle.entidad }}</td>
-                                <td>{{ o.objeto_cycle.version }}</td>
-                                <td>{{ o.objeto_cycle.fecha }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <span class="blue lighten-4 title_object">General</span>
+                        <div class="content-info">
+                            <p class="blue darken-4 white-text">Título:</p>
+                            <p>{{ o.titulo ? o.titulo : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Descripción:</p>
+                            <p>{{ o.descripcion ? o.descripcion : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Idioma(s):</p>
+                            <p>{{ o.idioma ? o.idioma : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Palabras Clave:</p>
+                            <p>{{ o.tags ? o.tags : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Cobertura:</p>
+                            <p>{{ o.cobertura ? o.cobertura : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Estructura:</p>
+                            <p>{{ o.estructura ? o.estructura : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Nivel de agregación:</p>
+                            <p>{{ o.nivel_agregacion ? o.nivel_agregacion : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Pais proveedor:</p>
+                            <p>{{ o.pais_proveedor ? o.pais_proveedor : 'No especificado' }}</p>
+                        </div>
+                    <span class="blue lighten-4 title_object">Ciclo de vida</span>
+                        <div class="content-info">
+                            <p class="blue darken-4 white-text">Version:</p>
+                            <p>{{ o.objeto_cycle.version ? o.objeto_cycle.version : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Estado:</p>
+                            <p>{{ o.objeto_cycle.estado ? o.objeto_cycle.estado : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Contribuyente:</p>
+                            <p>{{ o.objeto_cycle.contribuyente ? o.objeto_cycle.contribuyente : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Cambio registro:</p>
+                            <p>{{ o.objeto_cycle.cambio_registro ? o.objeto_cycle.cambio_registro : 'No especificado' }}</p>
+                        </div>
+                    <span class="blue lighten-4 title_object">Técnico</span>
+                        <div class="content-info">
+                            <p class="blue darken-4 white-text">Formato:</p>
+                            <p>{{ o.objeto_tecnhincal.formato ? getNameFormat(o.objeto_tecnhincal.formato) : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Instrucciones:</p>
+                            <p>{{ o.objeto_tecnhincal.instrucciones ? o.objeto_tecnhincal.instrucciones : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Requerimientos:</p>
+                            <p>{{ o.objeto_tecnhincal.requerimientos ? o.objeto_tecnhincal.requerimientos : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Tamaño:</p>
+                            <p>{{ o.objeto_tecnhincal.tamano ? o.objeto_tecnhincal.tamano : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Otros requerimientos:</p>
+                            <p>{{ o.objeto_tecnhincal.otro_requerimiento ? o.objeto_tecnhincal.otro_requerimiento : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Duración:</p>
+                            <p>{{ o.objeto_tecnhincal.duracion ? o.objeto_tecnhincal.duracion : 'No especificado' }}</p>
+                        </div>
+                    <span class="blue lighten-4 title_object">Educacional</span>
+                        <div class="content-info">
+                            <p class="blue darken-4 white-text">Tipo de interactividad:</p>
+                            <p>{{ o.objeto_education.tipo_interactividad ? o.objeto_education.tipo_interactividad : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Tipo recurso:</p>
+                            <p>{{ o.objeto_education.tipo_recurso ? o.objeto_education.tipo_recurso : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Nivel de interactividad:</p>
+                            <p>{{ o.objeto_education.nivel_interactividad ? o.objeto_education.nivel_interactividad : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Usuario final:</p>
+                            <p>{{ o.objeto_education.usuario_final ? o.objeto_education.usuario_final : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Densidad semantica:</p>
+                            <p>{{ o.objeto_education.densidad_semantica ? o.objeto_education.densidad_semantica : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Rango edad:</p>
+                            <p>{{ o.objeto_education.rangos_edad ? o.objeto_education.rangos_edad : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Contexto:</p>
+                            <p>{{ o.objeto_education.contexto ? o.objeto_education.contexto : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Dificultad:</p>
+                            <p>{{ o.objeto_education.dificultad ? o.objeto_education.dificultad : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Tiempo de aprendizaje:</p>
+                            <p>{{ o.objeto_education.tiempo_aprendizaje ? o.objeto_education.tiempo_aprendizaje : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Descripcion:</p>
+                            <p>{{ o.objeto_education.descripcion ? o.objeto_education.descripcion : 'No especificado' }}</p>
+                        </div>
+                    <span class="blue lighten-4 title_object">Derechos</span>
+                        <div class="content-info">
+                            <p class="blue darken-4 white-text">Licencia:</p>
+                            <p>{{ o.objeto_copyrigth.costo ? getNameLicence(o.objeto_copyrigth.costo) : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Poseedor derecho patrimonial:</p>
+                            <p>{{ o.objeto_copyrigth.poseedor_derecho_patrimonial ? o.objeto_copyrigth.poseedor_derecho_patrimonial : 'No especificado' }}</p>
+                            <p class="blue darken-4 white-text">Descripcion:</p>
+                            <p>{{ o.objeto_copyrigth.descripcion ? o.objeto_copyrigth.descripcion : 'No especificado' }}</p>
+                        </div>
                 </div>
-            </li>  
+            </li>
             {% endfor %}
          </ul>
     </div>

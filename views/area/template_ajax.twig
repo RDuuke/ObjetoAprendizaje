@@ -1,0 +1,3 @@
+{% for n in area.nucleos %}
+    <li><a href="{{ path_for('nucleo.object.show', {'area' : area.id, 'nucleo' : n.id }) }}">{{ n.name | replace({'.': ''})| capitalize  }} ({{n.objetos.count}})</a></li>
+{% endfor %}
