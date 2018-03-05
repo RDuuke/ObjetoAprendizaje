@@ -21,13 +21,13 @@ CREATE TABLE IF NOT EXISTS `areas_conocimientos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQUE_CODIGO` (`codigo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla bancoobjetos.areas_conocimientos: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla bancoobjetos.areas_conocimientos: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `areas_conocimientos` DISABLE KEYS */;
 REPLACE INTO `areas_conocimientos` (`id`, `codigo`, `name`, `created_at`, `updated_at`) VALUES
 	(1, '1', 'AGRONOMIA VETERINARIA Y AFINES.', '2018-02-04 22:07:03', '2018-02-05 04:07:03'),
@@ -38,8 +38,8 @@ REPLACE INTO `areas_conocimientos` (`id`, `codigo`, `name`, `created_at`, `updat
 CREATE TABLE IF NOT EXISTS `formatos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -55,8 +55,8 @@ REPLACE INTO `formatos` (`id`, `name`, `created_at`, `updated_at`) VALUES
 CREATE TABLE IF NOT EXISTS `licencias` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQUE NAME` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `nucleo_conocimiento` (
   `codigo` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `codigo_area` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQUE CODIGO` (`codigo`),
   KEY `FK__areas_conocimientos` (`codigo_area`),
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `nucleo_conocimiento` (
 -- Volcando datos para la tabla bancoobjetos.nucleo_conocimiento: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `nucleo_conocimiento` DISABLE KEYS */;
 REPLACE INTO `nucleo_conocimiento` (`id`, `name`, `codigo`, `codigo_area`, `created_at`, `updated_at`) VALUES
-	(1, 'AGRONOMIA.', '11', '1', '2018-02-05 13:49:18', '2018-02-05 19:49:18'),
+	(1, 'AGRONOMIA', '11', '1', '2018-03-05 12:03:58', '2018-03-05 12:03:58'),
 	(2, 'ZOOTECNIA', '12', '1', '2018-02-12 19:36:34', '2018-02-12 19:36:34'),
 	(3, 'MUSICA', '28', '2', '2018-02-12 19:37:14', '2018-02-12 19:37:14');
 /*!40000 ALTER TABLE `nucleo_conocimiento` ENABLE KEYS */;
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `objetos_cabecera` (
   `nivel_agregacion` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `pais_proveedor` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -123,14 +123,14 @@ CREATE TABLE IF NOT EXISTS `objetos_ciclo` (
   `estado` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `contribuyente` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cambio_registro` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `FK_objeto_ciclo_objeto_cabecera` (`codigo_objeto`),
   CONSTRAINT `FK_objeto_ciclo_objeto_cabecera` FOREIGN KEY (`codigo_objeto`) REFERENCES `objetos_cabecera` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla bancoobjetos.objetos_ciclo: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla bancoobjetos.objetos_ciclo: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `objetos_ciclo` DISABLE KEYS */;
 REPLACE INTO `objetos_ciclo` (`id`, `codigo_objeto`, `version`, `estado`, `contribuyente`, `cambio_registro`, `created_at`, `updated_at`) VALUES
 	(5, 18, '1.0', '', '', '', '2018-02-27 18:03:22', '2018-02-27 18:03:22');
@@ -143,19 +143,21 @@ CREATE TABLE IF NOT EXISTS `objetos_derecho` (
   `costo` int(11) NOT NULL,
   `poseedor_derecho_patrimonial` varchar(50) COLLATE utf8_unicode_ci DEFAULT 'No especificado',
   `descripcion` varchar(50) COLLATE utf8_unicode_ci DEFAULT 'No especificado',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `FK_objetos_derecho_objetos_cabecera` (`codigo_objeto`),
   KEY `FK_objetos_derecho_licencias` (`costo`),
   CONSTRAINT `FK_objetos_derecho_licencias` FOREIGN KEY (`costo`) REFERENCES `licencias` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_objetos_derecho_objetos_cabecera` FOREIGN KEY (`codigo_objeto`) REFERENCES `objetos_cabecera` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla bancoobjetos.objetos_derecho: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla bancoobjetos.objetos_derecho: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `objetos_derecho` DISABLE KEYS */;
 REPLACE INTO `objetos_derecho` (`id`, `codigo_objeto`, `costo`, `poseedor_derecho_patrimonial`, `descripcion`, `created_at`, `updated_at`) VALUES
-	(4, 18, 1, '', 'Descripcion', '2018-02-27 18:03:22', '2018-02-27 18:03:22');
+	(4, 18, 1, '', 'Descripcion', '2018-02-27 18:03:22', '2018-02-27 18:03:22'),
+	(6, 6, 1, 'No especificado', 'No especificado', '2018-03-05 10:27:28', '2018-03-05 10:27:28'),
+	(7, 7, 3, 'No especificado', 'No especificado', '2018-03-05 10:27:38', '2018-03-05 10:27:38');
 /*!40000 ALTER TABLE `objetos_derecho` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bancoobjetos.objetos_educacional
@@ -172,8 +174,8 @@ CREATE TABLE IF NOT EXISTS `objetos_educacional` (
   `dificultad` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No especificado',
   `tiempo_aprendizaje` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No especificado',
   `descripcion` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No especificado',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `FK_objetos_educacional_objetos_cabecera` (`codigo_objeto`),
   CONSTRAINT `FK_objetos_educacional_objetos_cabecera` FOREIGN KEY (`codigo_objeto`) REFERENCES `objetos_cabecera` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -192,8 +194,8 @@ CREATE TABLE IF NOT EXISTS `objetos_meta` (
   `contribuyente` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No especificado',
   `esquema_metadato` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No especificado',
   `idioma` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No especificado',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `FK_objeto_meta_objetos_cabecera` (`codigo_objeto`),
   CONSTRAINT `FK_objeto_meta_objetos_cabecera` FOREIGN KEY (`codigo_objeto`) REFERENCES `objetos_cabecera` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -210,8 +212,8 @@ CREATE TABLE IF NOT EXISTS `objetos_relacion` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo_objeto` int(11) NOT NULL,
   `codigo_area` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `FK_objetos_relacion_objetos_cabecera` (`codigo_objeto`),
   KEY `FK_objetos_relacion_nucleo_conocimiento` (`codigo_area`),
@@ -219,7 +221,7 @@ CREATE TABLE IF NOT EXISTS `objetos_relacion` (
   CONSTRAINT `FK_objetos_relacion_objetos_cabecera` FOREIGN KEY (`codigo_objeto`) REFERENCES `objetos_cabecera` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla bancoobjetos.objetos_relacion: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla bancoobjetos.objetos_relacion: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `objetos_relacion` DISABLE KEYS */;
 REPLACE INTO `objetos_relacion` (`id`, `codigo_objeto`, `codigo_area`, `created_at`, `updated_at`) VALUES
 	(1, 18, '28', '2018-02-27 18:03:22', '2018-02-27 18:03:22'),
@@ -241,19 +243,21 @@ CREATE TABLE IF NOT EXISTS `objetos_tecnico` (
   `miniatura` varchar(50) COLLATE utf8_unicode_ci DEFAULT 'No especificado',
   `imagenes_previas` varchar(50) COLLATE utf8_unicode_ci DEFAULT 'No especificado',
   `imagenes_posteriores` varchar(50) COLLATE utf8_unicode_ci DEFAULT 'No especificado',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `FK_objeto_tecnico_objeto_cabecera` (`codigo_objeto`),
   KEY `FK_objeto_tecnico_formato` (`formato`),
   CONSTRAINT `FK_objeto_tecnico_formato` FOREIGN KEY (`formato`) REFERENCES `formatos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_objeto_tecnico_objeto_cabecera` FOREIGN KEY (`codigo_objeto`) REFERENCES `objetos_cabecera` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla bancoobjetos.objetos_tecnico: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla bancoobjetos.objetos_tecnico: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `objetos_tecnico` DISABLE KEYS */;
 REPLACE INTO `objetos_tecnico` (`id`, `codigo_objeto`, `formato`, `instrucciones`, `requerimientos`, `tamano`, `ubicacion`, `otro_requerimiento`, `duracion`, `miniatura`, `imagenes_previas`, `imagenes_posteriores`, `created_at`, `updated_at`) VALUES
-	(9, 18, 3, '', 'No especificado', '0 kbytes', '28\\2\\81158b8cc178f22e.zip', '', '', 'No especificada', 'No especificado', 'No especificado', '2018-02-27 18:03:22', '2018-02-27 18:03:22');
+	(9, 18, 3, '', 'No especificado', '0 kbytes', '28\\2\\81158b8cc178f22e.zip', '', '', 'http://via.placeholder.com/150x250', 'No especificado', 'No especificado', '2018-02-27 18:03:22', '2018-03-05 11:46:57'),
+	(10, 7, 3, 'No especificado', 'No especificado', '', '', 'No especificado', 'No especificado', 'http://via.placeholder.com/150x250', 'No especificado', 'No especificado', '2018-03-05 11:39:47', '2018-03-05 11:47:00'),
+	(11, 6, 6, 'No especificado', 'No especificado', '', '', 'No especificado', 'No especificado', 'http://via.placeholder.com/150x250', 'No especificado', 'No especificado', '2018-03-05 11:40:11', '2018-03-05 11:47:03');
 /*!40000 ALTER TABLE `objetos_tecnico` ENABLE KEYS */;
 
 -- Volcando estructura para tabla bancoobjetos.roles
@@ -276,9 +280,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `role` int(11) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQUE EMAIL` (`email`),
   KEY `FK_users_roles` (`role`),
@@ -287,10 +291,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Volcando datos para la tabla bancoobjetos.users: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-REPLACE INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `updated_at`, `role`) VALUES
-	(5, 'Duque Juan', 'juan.duque@gmail.com', '$2y$10$j/EfROSsk919mwiA5VcqquNPyYBvNzQxTCH/hb/BLqA60jH8YaZQm', '2018-02-12 16:04:31', '2018-02-12 22:04:31', 2),
-	(6, 'Carlos Andres', 'carlos.andres@gmail.com', '$2y$10$mBtjV4mVTDgvdCkwgzNV1ObIBCr//Gp1XMnKptkACIpdZyG8hTxLC', '2018-02-04 16:49:27', '2018-02-04 16:49:27', 1),
-	(12, 'Juan Duque', 'juuanduuke@gmail.com', '$2y$10$qpSThi3Hm5yf9q/JZa3NluXcheVJy4pXtgV9jKah37IzYCbyouSdO', '2018-02-12 16:03:10', '2018-02-12 16:03:10', 2);
+REPLACE INTO `users` (`id`, `name`, `email`, `password`, `role`, `created_at`, `updated_at`) VALUES
+	(5, 'Duque Juan', 'juan.duque@gmail.com', '$2y$10$j/EfROSsk919mwiA5VcqquNPyYBvNzQxTCH/hb/BLqA60jH8YaZQm', 2, '2018-02-12 16:04:31', '2018-02-12 22:04:31'),
+	(6, 'Carlos Andres', 'carlos.andres@gmail.com', '$2y$10$mBtjV4mVTDgvdCkwgzNV1ObIBCr//Gp1XMnKptkACIpdZyG8hTxLC', 1, '2018-02-04 16:49:27', '2018-02-04 16:49:27'),
+	(12, 'Juan Duque', 'juuanduuke@gmail.com', '$2y$10$qpSThi3Hm5yf9q/JZa3NluXcheVJy4pXtgV9jKah37IzYCbyouSdO', 2, '2018-02-12 16:03:10', '2018-02-12 16:03:10');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

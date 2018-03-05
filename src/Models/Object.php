@@ -14,12 +14,12 @@ class Object extends Model {
 
     public function licencia()
     {
-        return $this->belongsTo("App\Models\Licence", "licencia");
+        return $this->belongsTo("\App\Models\Licence", "licencia");
     }
 
     public function nucleo()
     {
-        return $this->belongsTo("App\Models\objectRelation", "codigo_objeto");
+        return $this->hasOne("\App\Models\objectRelation", "codigo_objeto", "id");
     }
 
     public function objeto_tecnhincal()
@@ -57,11 +57,13 @@ class Object extends Model {
 
     public static function searchAdvanced($search)
     {
-        return Capsule::table('objetos_cabecera')
-                            ->join('nucleo_conocimiento', 'objetos_cabecera.codigo', '=', 'nucleo_conocimiento.codigo')
+        return Capsule::table('objetos_relacion')
+                            ->join('nucleo_conocimiento', 'objetos_relacion.codigo_area', '=', 'nucleo_conocimiento.codigo')
                             ->join('areas_conocimientos', 'nucleo_conocimiento.codigo_area', '=', 'areas_conocimientos.codigo')
-                            ->whereIn('objetos_cabecera.codigo', $search['nucleos'])
-                            ->WhereIn('objetos_cabecera.licencia', $search['licences'])
+                            ->join('objetos_cabecera', 'objetos_relacion.codigo_objeto', '=', 'objetos_cabecera.id')
+                            ->join('objetos_derecho', 'objetos_cabecera.id', '=', 'objetos_derecho.codigo_objeto')
+                            ->whereIn('objetos_relacion.codigo_area', $search['nucleos'])
+                            ->WhereIn('objetos_derecho.costo', $search['licences'])
                             ->Where('areas_conocimientos.id', '=', $search['area'])
                             ->select('objetos_cabecera.*')
                             ->get();

@@ -15,11 +15,17 @@
 </head>
 <body>
     <div class="ed-container full">
+        <div class="ed-item s-100 no-padding">
+            <img src="http://www.telceltijuana.com/wp-content/uploads/2016/04/Fondo-BG-1200x200.png" alt="" style="width:100%;height:200px">
+        </div>
         <div class="ed-item s-100 l-20">
+        <br>
             <form action="{{ path_for('home.search') }}" method="get">
-                <input type="text" name="search">
+                <input type="text" name="search" placeholder="Buscar">
                 <button class="btn blue">Buscar</button>
-            </form
+            </form>
+            <br>
+            <hr>
             <p>Areas de conocimiento</p>
             <ul class="menu_home">
                 {% for a in areas %}
@@ -27,8 +33,8 @@
                         <ul></ul>
                     </li>
                 {% endfor %}
-
             </ul>
+            <br>
             <hr>
             {% if auth.check %}
                 <p><b>{{  auth.user.name }}</b></p>
@@ -39,17 +45,15 @@
             {% else %}
                 <p>inicio de sesion</p>
                 <form action="{{ path_for("auth.signin") }}" method="post" autocomplete="off">
-                    <label for="username">nombre de usuario</label>
-                    <input type="email" name="email">
-                    <label for="password">contraseña</label>
-                    <input type="password" name="password">
-                    <button>inciar sesion</button>
+                    <input type="email" name="email" placeholder="Nombre de usuario">
+                    <input type="password" name="password" placeholder="Contraseña">
+                    <button class="btn blue">inciar sesion</button>
                 </form>
-                <a href="{{ path_for('user.create') }}">crear nueva cuenta</a>
+                <a href="{{ path_for('user.create') }}">crear cuenta</a>
             {% endif %}
 
         </div>
-        <div class="ed-item s-100 l-80">
+        <div class="ed-item s-100 l-80 no-padding">
             {% include 'template/partials/flash.twig' %}
             {% include 'template/partials/breadcrumbs.twig' %}
             {% block content %}{% endblock %}

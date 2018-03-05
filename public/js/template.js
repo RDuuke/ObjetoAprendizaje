@@ -13,7 +13,7 @@ jQuery( document ).ready(function( $ ) {
             console.log(d);
             $("#nucleo_select_search").html('');
             for(var i in d) {
-                $("#nucleo_select_search").append("<option value='"+d[i].id+"'>"+d[i].name+"</option>");
+                $("#nucleo_select_search").append("<option value='"+d[i].codigo+"'>"+d[i].name+"</option>");
             }
         });
     });
