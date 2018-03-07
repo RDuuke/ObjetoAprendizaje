@@ -22,7 +22,6 @@ use App\Auth\Auth;
 use App\Models\Area;
 use App\Models\Nucleo;
 use App\Models\Object;
-
 $app = new App([
     'settings' => [
         'determineRouteBeforeAppMiddeware' => false,
