@@ -23,6 +23,11 @@ use Slim\Http\Stream;
 
 class ObjectController extends Controller {
 
+    protected $rangos = ["10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49"];
+    protected $niveles = ["baja", "media", "alta"];
+    protected $tipos_interactividad = ["selectiva", "transformativa", "constructiva"];
+    protected $poblacion = ['estudiante', 'profesor', 'estudiantes y profesores'];
+    protected $educacion = ['básica', 'media', 'superior'];
     public function create(Request $request,Response $response) {
 
         $formats = Format::all();
@@ -31,7 +36,12 @@ class ObjectController extends Controller {
         return $this->view->render($response, 'admin/object/formulario.twig', [
             'formats' => $formats,
             'licences' => $licences,
-            'areas' => $areas
+            'areas' => $areas,
+            'rangos' => $this->rangos,
+            'niveles' => $this->niveles,
+            'tipos' => $this->tipos_interactividad,
+            'educacion' => $this->educacion,
+            'poblacion' => $this->poblacion
         ]);
     }
 
@@ -56,24 +66,9 @@ class ObjectController extends Controller {
             return $response->withRedirect($this->router->pathFor('object.create'));
         }*/
 
-        $files = $request->getUploadedFiles();
-        if (empty($files['archive'])){
-            throw new \Exception("No archive object");
-        }else{
-            $ubicacion = $this->moveUploadedFile($request->getParam('nucleo_select_search'), $files['archive']);
-        }
-        if(empty($file["miniatura"])) {
-            $miniatura = "No especificada";
-        }else {
-            $miniatura = $this->moveUploadedFile($request->getParam('nucleo_select_search'), $files['miniatura']);
-        }
+
 
         $object = Object::create($request->getParam('general'));
-        $technic = $request->getParam('technic');
-        $technic["codigo_objeto"] = $object->id;
-        $technic["miniatura"] = $miniatura;
-        $technic["ubicacion"] = $ubicacion;
-        objectTechnical::create($technic);
 
         $cycle = $request->getParam('cycle');
         $cycle["codigo_objeto"] = $object->id;
@@ -90,17 +85,70 @@ class ObjectController extends Controller {
         $meta = $request->getParam('meta');
         $meta["codigo_objeto"] = $object->id;
         objectMeta::create($meta);
-
         $relational['codigo_objeto'] = $object->id;
-        $relational['codigo_area'] = Nucleo::find($request->getParam('nucleo_select_search'))->codigo;
+        $relational['codigo_area'] = $request->getParam('nucleo_select_search');
         objectRelation::create($relational);
 
+        $files = $request->getUploadedFiles();
+
+        if (empty($files['archive'])){
+            throw new \Exception("No archive object");
+        }else{
+            $ubicacion = $this->moveUploadedFile($object->id, $files['archive']);
+        }
+        if(empty($file["miniatura"])) {
+            $miniatura = "No especificada";
+        }else {
+            $miniatura = $this->moveUploadedFile($object->id, $files['miniatura']);
+        }
+        $technic = $request->getParam('technic');
+        $technic["codigo_objeto"] = $object->id;
+        $technic["miniatura"] = $miniatura;
+        $technic["ubicacion"] = $ubicacion;
+        objectTechnical::create($technic);
 
 
         $this->flash->addMessage('info', "Se creo correctamente el objeto");
         return $response->withRedirect($this->router->pathFor('object.index'));
     }
+    public function update(Request $request, Response $response)
+    {
+        $router = $request->getAttribute('route');
+        $object_id = $router->getArgument('id');
+        Object::where('id', $object_id)->update($request->getParam('general'));
 
+        $cycle = $request->getParam('cycle');
+        objectCycle::where('codigo_objeto', $object_id)->update($cycle);
+
+        $copyright = $request->getParam('copyright');
+        objectCopyRigth::where('codigo_objeto', $object_id)->update($copyright);
+
+        $education = $request->getParam('education');
+        objectEducation::where('codigo_objeto', $object_id)->update($education);
+
+        $meta = $request->getParam('meta');
+        objectMeta::where('codigo_objeto', $object_id)->update($meta);
+
+        $relational['codigo_area'] = $request->getParam('nucleo_select_search');
+        objectRelation::where('codigo_objeto', $object_id)->update($relational);
+
+        $files = $request->getUploadedFiles();
+        $technic = $request->getParam('technic');
+        $file = $files['archive'];
+        if($file->getError() === UPLOAD_ERR_OK) {
+            if (! $file->getError() === UPLOAD_ERR_OK){
+                throw new \Exception("No archive object");
+            }else{
+                $this->deleteFile($object_id);
+                $ubicacion = $this->moveUploadedFile($object_id, $file);
+            }
+            $technic["ubicacion"] = $ubicacion;
+        }
+        objectTechnical::where('codigo_objeto', $object_id)->update($technic);
+
+        $this->flash->addMessage('info', "Se actualizo correctamente el objeto");
+        return $response->withRedirect($this->router->pathFor('object.index'));
+    }
     public function delete(Request $request, Response $response)
     {
         $router = $request->getAttribute('route');
@@ -119,25 +167,29 @@ class ObjectController extends Controller {
 
     }
 
-    protected function moveUploadedFile($codigo, UploadedFile $file)
+    protected function moveUploadedFile($id, UploadedFile $file)
     {
         $directory = $this->upload_directory;
-        $directory .= Nucleo::find($codigo)->codigo . DS;
-        $directory .= Nucleo::find($codigo)->area->codigo . DS;
-        $savedirectory = Nucleo::find($codigo)->codigo . DS . Nucleo::find($codigo)->area->codigo . DS;
-        echo $directory;
+        $object = Object::find($id);
+        $directory .=  DS . $object->objeto_relation->nucleo->codigo_area . DS . $object->objeto_relation->codigo_area;
+        $savedirectory = DS . $object->objeto_relation->nucleo->codigo_area . DS . $object->objeto_relation->codigo_area;
         if(!file_exists($directory)) {
-            mkdir($directory, 0777, true);
+            mkdir($savedirectory, 0777, true);
         }
         $basename = bin2hex(random_bytes(8));
         $extension = pathinfo($file->getClientFilename(), PATHINFO_EXTENSION);
         $filename = sprintf('%s.%0.8s', $basename, $extension);
 
-        $file->moveTo($directory . $filename);
+        $file->moveTo($directory . DS . $filename);
 
-        return $savedirectory.$filename;
+        return $savedirectory.DS.$filename;
     }
 
+    protected function deleteFile($objecto_id)
+    {
+        $ubicacion = objectTechnical::select('ubicacion')->where('codigo_objeto', $objecto_id)->first();
+        return unlink($this->upload_directory . $ubicacion->ubicacion);
+    }
     public function showHome(Request $request, Response $response)
     {
         $router = $request->getAttribute('route');
@@ -156,7 +208,12 @@ class ObjectController extends Controller {
             'nucleos' => $nucleos,
             'object' => $object,
             'licences' => $licences,
-            'formats' => $formats
+            'formats' => $formats,
+            'rangos' => $this->rangos,
+            'niveles' => $this->niveles,
+            'tipos' => $this->tipos_interactividad,
+            'educacion' => $this->educacion,
+            'poblacion' => $this->poblacion
         ]);
     }
 
@@ -164,7 +221,7 @@ class ObjectController extends Controller {
     {
         $router = $request->getAttribute('route');
         $object = Object::find($router->getArgument('id'));
-        $file =  BASE_DIR ."resources". DS . $object->adjunto;
+        $file =  BASE_DIR ."resources". DS . $object->objeto_tecnhincal->ubicacion;
         $string = trim($object->titulo);
 
     $string = str_replace(

@@ -12,10 +12,6 @@ class Object extends Model {
     protected $table = "objetos_cabecera";
     protected $fillable = ["titulo", "adjunto", "descripcion", "tags", "licencia", "descargas",  "idioma", "cobertura", "estructura", "nivel_agregacion", "pais_proveedor"];
 
-    public function licencia()
-    {
-        return $this->belongsTo("\App\Models\Licence", "licencia");
-    }
 
     public function nucleo()
     {
@@ -44,7 +40,10 @@ class Object extends Model {
     {
         return $this->hasOne("App\Models\objectMeta", "codigo_objeto", 'id');
     }
-
+    public function objeto_relation()
+    {
+        return $this->hasOne("App\Models\objectRelation", "codigo_objeto", 'id');
+    }
 
     public static function searchTagsAndTitle($search)
     {

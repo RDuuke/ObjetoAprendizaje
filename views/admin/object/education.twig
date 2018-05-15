@@ -1,15 +1,27 @@
 <li class="step">
     <div class="step-title waves-effect">Educacional</div>
-        <div class="step-content ed-conatiner">
-        <div class="input-field ed-item s-100">
-            <input type="text" name="education[tipo_interactividad]" required value="{{ object.tipo_interactividad }}">
+    <div class="step-content ed-conatiner">
+        <div class="ed-item s-100">
+            <!--<input type="text" name="education[tipo_interactividad]" required value="{{ object.objeto_education.tipo_interactividad }}">-->
             <label for="tipo_interactividad">Tipo de interactividad</label>
+            <select name="education[tipo_interactividad]" class="browser-default full" id="tipo_interactividad">
+                {% for n in tipos %}
+                    {% set selected = "" %}
+                    {% if (n == object.objeto_education.tipo_interactividad) %}
+                        {% set selected = "selected" %}
+                    {% endif %}
+                    <option value="{{ n }}" {{ selected }}>{{ n }}</option>
+                {% endfor %}
+            </select>
         </div>
         <div class="ed-item s-100">
         <br>
             <!--<input type="text" name="education[tipo_recurso]" required value="{{ object.tipo_recurso }}">-->
             <label for="tipo_recurso">Tipo de recurso</label>
             <select id="tipo_recurso" class="browser-default full" name="education[tipo_recurso]">
+                {% if (object.objeto_education.tipo_recurso) %}
+                    <option value="{{ object.objeto_education.tipo_recurso }}">{{ object.objeto_education.tipo_recurso }}</option>
+                {% endif %}
                 <option value="simuladores">Simuladores</option>
                 <option value="multimedia">Multimedia</option>
                 <option value="tutoriales">Tutoriales</option>
@@ -22,38 +34,85 @@
             </select>
         <br>
         </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="education[nivel_interactividad]" required value="{{ object.nivel_interactividad }}">
+        <div class="ed-item s-100">
+            <!--<input type="text" name="education[nivel_interactividad]" required value="{{ object.objeto_education.nivel_interactividad }}">-->
             <label for="nivel_interactividad">Nivel de interactividad</label>
+            <select name="education[nivel_interactividad]" id="nivel_interactividad" class="browser-default">
+                {% for n in niveles %}
+                    {% set selected = "" %}
+                    {% if (n == object.objeto_education.nivel_interactividad) %}
+                        {% set selected = "selected" %}
+                    {% endif %}
+                    <option value="{{ n }}" {{ selected }}>{{ n }}</option>
+                {% endfor %}
+            </select>
         </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="education[densidad_semantica]" value="{{ object.densidad_semantica }}">
+        <!--<div class="input-field ed-item s-100">
+            <input type="text" name="education[densidad_semantica]" value="{{ object.objeto_education.densidad_semantica }}">
             <label for="densidad_semantica">Densidad semántica</label>
         </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="education[usuario_final]" value="{{ object.usuario_final }}">
-            <label for="usuario_final">Usuario final</label>
+-->
+        <div class="ed-item s-100">
+            <!--<input type="text" name="education[usuario_final]" value="{{ object.objeto_education.usuario_final }}">-->
+            <label for="usuario_final">Población objetivo</label>
+            <select name="education[usuario_final]" id="usuario_final" class="browser-default">
+            {% for n in poblacion %}
+                {% set selected = "" %}
+                {% if (n == object.objeto_education.usuario_final) %}
+                    {% set selected = "selected" %}
+                {% endif %}
+                <option value="{{ n }}" {{ selected }}>{{ n }}</option>
+            {% endfor %}
+            </select>
         </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="education[contexto]" value="{{ object.contexto }}">
-            <label for="contexto">Contexto</label>
+        <div class="ed-item s-100">
+            <!--<input type="text" name="education[contexto]" value="{{ object.objeto_education.contexto }}">-->
+            <label for="contexto">Contexto de aprendizaje</label>
+            <select name="education[contexto]" id="contexto" class="browser-default">
+                {% for n in educacion %}
+                    {% set selected = "" %}
+                    {% if (n == object.objeto_education.contexto) %}
+                        {% set selected = "selected" %}
+                    {% endif %}
+                    <option value="{{ n }}" {{ selected }}>{{ n }}</option>
+                {% endfor %}
+            </select>
         </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="education[rangos_edad]" value="{{ object.rangos_edad }}">
+        <div class="ed-item s-100">
+            <!--<input type="text" name="education[rangos_edad]" value="{{ object.objeto_education.rangos_edad }}">-->
             <label for="rangos_edad">Rangos de edad</label>
+            <select name="education[rangos_edad]" id="rangos_edad" class="browser-default">
+                {% for n in rangos %}
+                    {% set selected = "" %}
+                    {% if (n == object.objeto_education.rangos_edad) %}
+                        {% set selected = "selected" %}
+                    {% endif %}
+                    <option value="{{ n }}" {{ selected }}>{{ n }}</option>
+                {% endfor %}
+            </select>
         </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="education[dificultad]" required value="{{ object.dificultad }}">
+        <div class="ed-item s-100">
+            <!--<input type="text" name="education[dificultad]" required value="{{ object.objeto_education.dificultad }}">-->
             <label for="dificultad">Dificultad</label>
+            <select name="education[dificultad]" id="dificultad" class="browser-default">
+                {% for n in niveles %}
+                    {% set selected = "" %}
+                    {% if (n == object.objeto_education.dificultad) %}
+                        {% set selected = "selected" %}
+                    {% endif %}
+                    <option value="{{ n }}" {{ selected }}>{{ n }}</option>
+                {% endfor %}
+            </select>
         </div>
+        <!--
         <div class="input-field ed-item s-100">
-            <input type="text" name="education[tiempo_aprendizaje]" value="{{ object.tiempo_aprendizaje }}">
+            <input type="text" name="education[tiempo_aprendizaje]" value="{{ object.objeto_education.tiempo_aprendizaje }}">
             <label for="tiempo_aprendizaje">Tiempo de aprendizaje</label>
         </div>
         <div class="input-field ed-item s-100">
-            <input type="text" name="education[descripcion]" required value="{{ object.descripcion }}">
+            <input type="text" name="education[descripcion]" required value="{{ object.objeto_education.descripcion }}">
             <label for="descripcion">Descripción</label>
-        </div>
+        </div>-->
         <div class="step-actions">
             <button class="waves-effect waves-dark btn blue next-step">CONTINUE</button>
             <button class="waves-effect waves-dark btn-flat previous-step">BACK</button>

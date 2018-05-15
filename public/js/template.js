@@ -1,6 +1,5 @@
-$.noConflict();
-
-jQuery( document ).ready(function( $ ) {
+$(function(){
+    $('.stepper').activateStepper();
     var getUri = "http://"+window.location.host;
     $('select').material_select();
     $('.collapsible').collapsible();
@@ -46,8 +45,6 @@ jQuery( document ).ready(function( $ ) {
         });
     });
 
-   // $('.stepper').activateStepper();
-
     $(".archive").change(function () {
 
         if(window.File && window.FileReader && window.FileList && window.Blob){
@@ -65,7 +62,12 @@ jQuery( document ).ready(function( $ ) {
         }
 
     });
-    jQuery.extend(jQuery.validator.messages, {
+
+    $("#saveFile").on('click', function (e) {
+        e.preventDefault();
+        $("#fileContent").toggleClass('none');
+    })
+    $.extend(jQuery.validator.messages, {
         required: "Este campo es obligatorio.",
         remote: "Por favor, rellena este campo.",
         email: "Por favor, escribe una dirección de correo válida",

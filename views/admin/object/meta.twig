@@ -1,14 +1,14 @@
 <li class="step">
     <div class="step-title waves-effect">Meta-metadata</div>
-        <div class="step-content ed-conatiner">
+    <div class="step-content ed-conatiner">
         <div class="input-field ed-item s-100">
-            <input type="text" name="meta[contribuyente]" required value="{{ object.Contribuyente }}">
+            <input type="text" name="meta[contribuyente]" required value="{{ object.objeto_meta.contribuyente }}">
             <label for="Contribuyente">Contribuyente</label>
         </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="meta[idioma]"  value="{{ object.idioma }}">
+        <!--<div class="input-field ed-item s-100">
+            <input type="text" name="meta[idioma]"  value="{{ object.objeto_meta.idioma }}">
             <label for="idioma">Idioma</label>
-        </div>
+        </div>-->
         <div class="step-actions">
             <button class="waves-effect waves-dark btn blue next-step">CONTINUE</button>
             <button class="waves-effect waves-dark btn-flat previous-step">BACK</button>

@@ -29,3 +29,58 @@
 label{
     text-transform: capitalize;
 }
+.collapsible-body p{
+    padding: 1em;
+}
+.collapsible-header.active {
+    background-color: #263238;
+    color: white;
+}
+.tabs a.active, .tabs a.active:hover{
+    background-color: #0D47A1 !important;
+}
+.tabs .tab a:hover {
+    text-decoration: none;
+}
+.tabs .indicator{
+    background-color: #fff !important;
+}
+
+.content-info p, select {
+    text-transform: capitalize !important;
+}
+.none{
+    display: none;
+}
+.height
+{
+    height:-moz-available;
+    height:-webkit-fill-available;
+}
+.height a{
+    color: white;
+}
+.margin-top-negative-6px{
+    margin-top: -6px;
+}
+.margin-top-negative-6px input {
+    box-sizing: border-box !important;
+    padding: 0 10px !important;
+    background-color: rgba(250,250,250, .5) !important;
+    border-bottom: 1px solid white !important;
+    background-color: #b1dcfb7d !important;
+}
+input:focus, input.valid, input:focus.valid{
+    border-bottom: 1px solid darkblue !important;
+}
+select, input {
+    border-top: 1px solid darkblue;
+    border-bottom: 1px solid darkblue;
+}
+.fixed
+{
+    position: fixed;
+}
+.left{
+    left: 0 !important;
+}
