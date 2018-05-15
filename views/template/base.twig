@@ -37,7 +37,7 @@
             <br>
             <hr>
             {% if auth.check %}
-                <p><b>{{  auth.user.name }}</b></p>
+                <p><b>{{  auth.user.name | capitalize  }}</b></p>
                 {% if auth.user.role == 2 %}
                     <a href="{{ path_for('admin.home') }}">Panel de administración</a> <br>
                 {% endif %}

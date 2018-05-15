@@ -1,8 +1,9 @@
 {% if flash.getMessage('info') %}
     <div class="ed-container full">
         <div class="ed-item s-100">
-            <div class="card-panel blue">
-            <span class="white-text">{{  flash.getMessage('info') | first | capitalize  }}</span>
+            <div class="chip blue">
+                <span class="white-text">{{  flash.getMessage('info') | first | capitalize  }}</span>
+                <i class="close material-icons">close</i>
             </div>
         </div>
     </div>
@@ -11,8 +12,9 @@
 {% if flash.getMessage('error') %}
     <div class="ed-container full">
         <div class="ed-item s-100">
-            <div class="card-panel red">
-            <span class="white-text">{{  flash.getMessage('error') | first | capitalize  }}</span>
+            <div class="chip red">
+                <span class="white-text">{{  flash.getMessage('error') | first | capitalize  }}</span>
+                <i class="close material-icons">close</i>
             </div>
         </div>
     </div>
