@@ -2,7 +2,7 @@
 {% block content %}
 <div class="ed-container">
         <div class="ed-item s-100">
-            <h4>Total resultados</h4>
+            <h4>Resultados</h4>
             <form method="post" action="{{ path_for('home.search.advanced') }}" autocomplete="off">
             <ul class="collapsible" data-collapsible="accordion">
                 <li>
@@ -42,8 +42,9 @@
         </div>
         <div class="ed-container">
             {% for o in objects %}
+            {% set data = getAreaAndNucleo(o.id)%}
             <div class="ed-item s-100">
-                <h5 class="header"><a href="{{ path_for('object.home.show', {'area' : getId("Area", "codigo", getData("Nucleo", "codigo", o.codigo).codigo_area), 'nucleo' : getId("Nucleo", "codigo", o.codigo), 'object' : o.id  }) }}">{{ o.titulo }}</a></h5>
+                <h5 class="header"><a href="{{ path_for('object.home.show', {'area' : data.area, 'nucleo' : data.nucleo, 'object' : o.id  }) }}">{{ o.titulo }}</a></h5>
                 <div class="card horizontal">
                     <div class="card-stacked">
                         <div class="card-content">
@@ -51,8 +52,6 @@
                             <p>{{ o.descripcion }}</p>
                             <h5>Palabras claves</h5>
                             <p>{{ o.tags }}</p>
-                            <h5>Licencia</h5>
-                            <p>{{ getNameLicence(o.licencia) }}</p>
                         </div>
                     </div>
                 </div>

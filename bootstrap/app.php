@@ -101,6 +101,19 @@ $container['view'] = function ($container) {
     });
 
     $view->getEnvironment()->addFunction($function);
+
+    $function = new Twig_SimpleFunction('getAreaAndNucleo', function ($id) {
+        $o = "\\App\\Models\\objectRelation";
+        $n = "\\App\\Models\\Nucleo";
+        $model_o = new $o;
+        $model_n = new $n;
+        $data_o = $model_o->where('codigo_objeto', "=", $id)->first();
+        $data_n = $model_n->where('codigo', "=", $data_o->codigo_area)->first();
+
+        return ["area" => $data_n->codigo_area, "nucleo" => $data_o->codigo_area];
+    });
+
+    $view->getEnvironment()->addFunction($function);
     $function = new Twig_SimpleFunction('getData', function ($table, $campo, $value) {
         $c = "\\App\\Models\\$table";
         $model = new $c;
