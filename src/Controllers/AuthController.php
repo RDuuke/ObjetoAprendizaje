@@ -90,6 +90,13 @@ class AuthController extends Controller
         return $this->view->render($response, 'admin/user/formulario.twig', ['user' => $user]);
 
     }
+    public function showN(Request $request,Response $response)
+    {
+        $router = $request->getAttribute('route');
+        $user = User::find($router->getArgument('id'));
+        return $this->view->render($response, 'users/formulario.twig', ['user' => $user]);
+
+    }
 
     public function update(Request $request,Response $response)
     {
@@ -98,10 +105,26 @@ class AuthController extends Controller
         $user->name = $request->getParam("name");
         $user->email = $request->getParam("email");
         $user->role = $request->getParam("role");
+        if(! empty($request->getParam('password'))) {
+            $user->password = password_hash($request->getParam("password"), PASSWORD_DEFAULT);
+        }
         $user->save();
         $this->flash->addMessage("info", "usuario actualizado.");
 
         return $response->withRedirect($this->router->pathFor('admin.user.index'));
+
+    }
+    public function updateN(Request $request,Response $response)
+    {
+        $router = $request->getAttribute('route');
+        $user = User::find($router->getArgument('id'));
+        $user->name = $request->getParam("name");
+        $user->email = $request->getParam("email");
+        if(! empty($request->getParam('password')) && password_verify($request->getParam('password_a'), $user->password)) {
+            $user->password = password_hash($request->getParam("password"), PASSWORD_DEFAULT);
+        }
+        $user->save();
+        return $response->withRedirect($this->router->pathFor('home'));
 
     }
 

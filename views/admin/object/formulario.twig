@@ -1,7 +1,7 @@
 {% extends "template/baseAdmin.twig" %}
 {% block content %}
     <h4>Objeto</h4>
-    {% if object.title %}
+    {% if object.id %}
         <form action="{{ path_for('object.update', {"id" : object.id }) }}" method="post" class="ed-container" autocomplete="off" enctype="multipart/form-data">
     {% else %}
         <form action="{{ path_for('object.store') }}" method="post" class="ed-container" autocomplete="off" enctype="multipart/form-data">
@@ -13,86 +13,6 @@
         {% include "admin/object/technic.twig" %}
         {% include "admin/object/education.twig" %}
         {% include "admin/object/copyright.twig" %}
-    <!--
-        <div class="input-field ed-item s-100">
-            <label for="_licence">Seleccione la licencia</label>
-            <br>
-            <br>
-        </div>
-        <div class="ed-item s-100">
-            <select id="codigo_area" class="browser-default full" name="licence">
-            {% for l in licences %}
-                {% set selected = "" %}
-                {% if (l.id == object.licencia) %}
-                    {% set selected = "selected" %}
-                {% endif %}
-                <option value="{{ l.id }}" {{ selected }}>{{ l.name }}</option>
-            {% endfor %}
-            </select>
-        </div>
-        <div class="input-field ed-item s-100">
-            <label for="_formato">Seleccione el formato</label>
-            <br>
-            <br>
-        </div>
-        <div class="ed-item s-100">
-            <select id="codigo_area" class="browser-default full" name="formato">
-            {% for f in formats %}
-                {% set selected = "" %}
-                {% if (l.id == object.objeto_tecnhincal.formato) %}
-                    {% set selected = "selected" %}
-                {% endif %}
-                <option value="{{ f.id }}" {{ selected }}>{{ f.name }}</option>
-            {% endfor %}
-            </select>
-        </div>
-    <div class="input-field ed-item s-100">
-        <label for="_formato">Seleccione el nucleo</label>
-        <br>
-        <br>
-    </div>
-    <div class="ed-item s-100">
-        <select id="codigo_area" class="browser-default full" name="nucleo">
-            {% for n in nucleos %}
-                {% set selected = "" %}
-                {% if (n.id == object.nucleo.id) %}
-                    {% set selected = "selected" %}
-                {% endif %}
-                <option value="{{ n.id }}" {{ selected }}>{{ n.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
-        <div class="input-field ed-item s-100">
-            <textarea type="text" name="instrucciones" required class="materialize-textarea" id="t2"> {{ object.objeto_tecnhincal.instrucciones }}</textarea>
-            <label for="t2">Instrucciones</label>
-        </div>
-        <div class="input-field ed-item s-100">
-            <textarea type="text" name="requerimientos" required class="materialize-textarea" id="t3">{{ object.objeto_tecnhincal.requerimientos }}</textarea>
-            <label for="t3">requerimientos</label>
-        </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="autor" required value="{{ object.objeto_cycle.autor }}">
-            <label for="autor">Autor</label>
-        </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="entidad" required value="{{ object.objeto_cycle.entidad }}">
-            <label for="entidad">Entidad</label>
-        </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="version" required value="{{ object.objeto_cycle.version }}">
-            <label for="version">Version</label>
-        </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="fecha" required value="{{ object.objeto_cycle.fecha }}">
-            <label for="fecha">Fecha</label>
-        </div>
-        <div class="input-field ed-item s-100">
-            <input type="file" name="adjunto" required value="{{ object.adjunto }}">
-        </div>
-        <div class="input-field ed-item s-100">
-            <br>
-
-        </div>-->
     </ul>
     </form>
 {% endblock %}

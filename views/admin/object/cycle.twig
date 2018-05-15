@@ -1,25 +1,28 @@
 <li class="step">
-    <div class="step-title waves-effect">Ciclo de vida</div>
-        <div class="step-content ed-conatiner">
+    <div class="step-content ed-conatiner">
         <div class="input-field ed-item s-100">
-            <input type="text" name="cycle[version]" value="{{ object.version }}">
+            <input type="text" name="cycle[version]" value="{{ object.objeto_cycle.version }}">
             <label for="version">Version</label>
         </div>
+        <!--
         <div class="input-field ed-item s-100">
-            <input type="text" name="cycle[estado]" value="{{ object.estado }}">
+            <input type="text" name="cycle[estado]" value="{{ object.objeto_cycle.estado }}">
             <label for="estado">Estado</label>
         </div>
         <div class="input-field ed-item s-100">
-            <input type="text" name="cycle[contribuyente]" value="{{ object.contribuyente }}">
+            <input type="text" name="cycle[contribuyente]" value="{{ object.objeto_cycle.contribuyente }}">
             <label for="contribuyente">Contribuyente</label>
         </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="cycle[cambio_registro]"  value="{{ object.cambio_registro }}">
-            <label for="cambio_registro">Cambio de registro</label>
+        -->
+        <div class="ed-item s-100">
+            <label for="cambio_registro">Fecha creación</label>
+            <br>
+            <input type="date" name="cycle[cambio_registro]"  value="{{ object.objeto_cycle.cambio_registro }}">
         </div>
         <div class="step-actions">
             <button class="waves-effect waves-dark btn blue next-step">CONTINUE</button>
             <button class="waves-effect waves-dark btn-flat previous-step">BACK</button>
         </div>
     </div>
+    <div class="step-title waves-effect">Ciclo de vida</div>
 </li>

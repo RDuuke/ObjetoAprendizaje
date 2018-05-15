@@ -4,34 +4,35 @@
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <!--Let browser know website is optimized for mobile-->
-    <link rel="stylesheet" href="{{ base_url }}/css/ed-grid.min.css" />
     <link rel="stylesheet" href="{{ base_url }}/css/normalize.css" />
+    <link rel="stylesheet" href="{{ base_url }}/css/ed-grid.min.css" />
     <link rel="stylesheet" href="{{ base_url }}/css/materialize-stepper.min.css" />
     <link rel="stylesheet" href="{{ base_url }}/css/template.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Panel de control</title>
 </head>
-<body>
+<body style="margin-left: 20%">
     <div class="ed-container full">
-        <div class="ed-item s-100 l-20">
-            <p>Acciones</p>
-            <ul>
+        <div class="ed-item s-100 l-20 blue darken-1 height fixed left" >
+            <p><b>Acciones</b></p>
+            <ul id="menu_admin">
                 <li><a href="{{ path_for("object.index") }}">Objetos</a></li>
                 <li><a href="{{ path_for("licence.index") }}">Licencias</a></li>
                 <li><a href="{{ path_for("format.index") }}">Formatos</a></li>
                 <li><a href="{{ path_for("admin.user.index") }}">Usuarios</a></li>
                 <li><a href="{{ path_for("area.index") }}">Areas de conocimiento</a></li>
                 <li><a href="{{ path_for("nucleo.index") }}">Nucleo de conocimiento</a></li>
-                <li><a href="">Salir</a></li>
+                <li><a href="{{ path_for("home") }}">Ver web</a></li>
             </ul>
             <hr>
             {% if auth.check %}
                 <p><b>{{  auth.user.name }}</b></p>
-                <a href="{{ path_for('user.create') }}">Mi cuenta</a> <br>
+                <a href="{{ path_for('admin.user.show', {'id' : auth.user.id}) }}">Mi cuenta</a> <br>
                 <a href="{{ path_for('auth.signout') }}">Cerrar sesión</a>
             {% else %}
-                <p>inicio de sesion</p>
+                <p><b>inicio de sesion</b></p>
                 <form action="{{ path_for("auth.signin") }}" method="post" autocomplete="off">
                     <label for="username">nombre de usuario</label>
                     <input type="email" name="email">
@@ -42,16 +43,17 @@
                 <a href="{{ path_for('user.create') }}">crear nueva cuenta</a>
             {% endif %}
         </div>
-        <div class="ed-item s-100 l-80">
+        <div class="ed-item s-100 l-100">
             {% include 'template/partials/flash.twig' %}
             {% block content %}{% endblock %}
         </div>
     </div>
 <!--Import jQuery before materialize.js-->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
-<script src="{{ base_url }}/js/materialize-stepper.min.js"></script>
-<script src="{{ base_url }}/js/template.js"></script>
+    <!--<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+    <script src="{{ base_url }}/js/materialize-stepper.min.js"></script>
+    <script src="{{ base_url }}/js/template.js"></script>
 </body>
 </html>

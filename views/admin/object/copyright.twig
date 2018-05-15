@@ -1,12 +1,12 @@
 <li class="step">
     <div class="step-title waves-effect">Derechos</div>
-        <div class="step-content ed-conatiner">
+    <div class="step-content ed-conatiner">
         <br>
         <div class="ed-item s-100">
             <select id="codigo_area" class="browser-default full" name="copyright[costo]">
             {% for l in licences %}
                 {% set selected = "" %}
-                {% if (l.id == object.licencia.id) %}
+                {% if (l.id == object.objeto_copyrigth.costo) %}
                     {% set selected = "selected" %}
                 {% endif %}
                 <option value="{{ l.id }}" {{ selected }}>{{ l.name }}</option>
@@ -15,16 +15,17 @@
         </div>
         <br>
         <br>
+        <!--
         <div class="input-field ed-item s-100">
-            <input type="text" name="copyright[poseedor_derecho_patrimonial]" value="{{ object.poseedor_derecho_patrimonial }}">
+            <input type="text" name="copyright[poseedor_derecho_patrimonial]" value="{{ object.objeto_copyrigth.poseedor_derecho_patrimonial }}">
             <label for="poseedor_derecho_patrimonial">Poseedor de derecho patrimonial</label>
         </div>
         <div class="input-field ed-item s-100">
-            <input type="text" name="copyright[descripcion]" required value="{{ object.descripcion }}">
+            <input type="text" name="copyright[descripcion]" required value="{{ object.objeto_copyrigth.descripcion }}">
             <label for="descripcion">Descripción</label>
-        </div>
+        </div>-->
         <div class="step-actions">
-            <button class="waves-effect waves-dark btn blue" type="submit">{{ object.title ? 'Actualizar ' : 'Crear' }} objeto</button>
+            <button class="waves-effect waves-dark btn blue" type="submit">{{ object.titulo ? 'Actualizar ' : 'Crear' }} objeto</button>
         </div>
     </div>
 </li>

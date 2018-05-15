@@ -1,24 +1,27 @@
 <li class="step active">
     <div class="step-title waves-effect">General</div>
-        <div class="step-content ed-conatiner">
+    <div class="step-content ed-conatiner">
         <div class="input-field ed-item s-100">
-            <input type="text" name="general[titulo]" required value="{{ object.titulo }}">
+            <input type="text" name="general[titulo]" required value="{{ object.titulo }}" class="validate">
             <label for="titulo">Titulo</label>
         </div>
         <div class="input-field ed-item s-100">
-            <input type="text" name="general[idioma]" required value="{{ object.idioma }}">
+            <input type="text" name="general[idioma]" required value="{{ object.idioma }}"  class="validate">
             <label for="idioma">idioma</label>
         </div>
         <div class="input-field ed-item s-100">
-            <textarea type="text" name="general[descripcion]" required class="materialize-textarea" id="t1"> {{ object.descripcion }} </textarea>
+            <textarea type="text" name="general[descripcion]" required class="materialize-textarea" id="t1" class="validate"> {{ object.descripcion }} </textarea>
             <label for="t1">Descripcion</label>
         </div>
         <div class="ed-item s-100">
             <label for="area_select_search">Area de conocimiento</label>
-            <select id="area_select_search" class="browser-default full" name="area_select_search">
+            <select id="area_select_search" class="browser-default full" name="area_select_search" required>
                 <option value="">Areas</option>
             {% for a in areas %}
                 {% set seaected = "" %}
+                {% if (a.codigo == object.objeto_relation.nucleo.codigo_area) %}
+                    {% set selected = "selected" %}
+                {% endif %}
                 <option value="{{ a.codigo }}" {{ selected }}>{{ a.name }}</option>
             {% endfor %}
             </select>
@@ -26,17 +29,17 @@
         <br>
         <div class="ed-item s-100">
             <label for="nucleo_select_search">Nucleo de conocimiento</label>
-            <select id="nucleo_select_search" class="browser-default full" name="nucleo_select_search">
-                <option value="">Nucleos</option>
+            <select id="nucleo_select_search" class="browser-default full" name="nucleo_select_search" required>
+                <option value="{{ object.objeto_relation.nucleo.codigo  }}">{{ object.objeto_relation.nucleo.name }}</option>
             </select>
         </div>
         <br>
         <div class="input-field ed-item s-100">
-            <input type="text" name="general[tags]" required value="{{ object.tags }}">
+            <input type="text" name="general[tags]" required value="{{ object.tags }}" class="validate">
             <label for="tags">Palabras claves</label>
         </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="general[cobertura]" required value="{{ object.cobertura }}">
+        <!--<div class="input-field ed-item s-100">
+            <input type="text" name="general[cobertura]" value="{{ object.cobertura }}">
             <label for="cobertura">Cobertura</label>
         </div>
         <div class="input-field ed-item s-100">
@@ -46,9 +49,9 @@
         <div class="input-field ed-item s-100">
             <input type="text" name="general[nivel_agregacion]" value="{{ object.nivel_agregacion }}">
             <label for="nivel_agregacion">Nivel de agregación</label>
-        </div>
+        </div>-->
         <div class="input-field ed-item s-100">
-            <input type="text" name="general[pais_proveedor]" value="{{ object.pais_proveedor }}">
+            <input type="text" name="general[pais_proveedor]" value="{{ object.pais_proveedor }}" >
             <label for="pais_proveedor">Pais proveedor</label>
         </div>
         <div class="step-actions">

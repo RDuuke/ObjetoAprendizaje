@@ -17,6 +17,6 @@ class objectRelation extends Model{
 
     public function nucleo()
     {
-        return $this->belongsTo("\App\Models\Nucleo", "codigo_area");
+        return $this->belongsTo("\App\Models\Nucleo", "codigo_area", "codigo");
     }
 }

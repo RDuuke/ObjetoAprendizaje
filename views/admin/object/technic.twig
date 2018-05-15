@@ -1,15 +1,20 @@
 <li class="step">
     <div class="step-title waves-effect">Técnica</div>
-        <div class="step-content ed-conatiner">
-         <div class="input-field ed-item s-100 file-field">
-            <div class="btn">
-                <span>Archivo</span>
-                <input type="file" name="archive" class="archive" accept=".zip, .rar">
+    <div class="step-content ed-conatiner">
+
+        {% if(object.id) %}
+            {% include "admin/object/file.twig" %}
+        {% else %}
+            <div class="input-field ed-item s-100 file-field">
+                <div class="btn">
+                    <span>Archivo</span>
+                    <input type="file" name="archive" class="archive" accept=".zip, .rar" >
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
             </div>
-            <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
-            </div>
-        </div>
+        {% endif %}
         <br>
         <div class="ed-item s-100">
             <label for="formato">Formato del archivo</label>
@@ -26,23 +31,23 @@
         <br>
         <br>
         <div class="input-field ed-item s-100">
-            <input type="text" name="technic[tamano]" class="tamano" required value="{{ object.tamano }}">
+            <input type="text" name="technic[tamano]" class="tamano" required value="{{ object.objeto_tecnhincal.tamano }}" readonly>
             <label for="tamano">Tamaño</label>
         </div>
         <div class="input-field ed-item s-100">
-            <input type="text" name="technic[requerimientos]" value="{{ object.requerimientos }}">
+            <input type="text" name="technic[requerimientos]" value="{{ object.objeto_tecnhincal.requerimientos }}">
             <label for="requerimientos">Requerimientos</label>
         </div>
         <div class="input-field ed-item s-100">
-            <input type="text" name="technic[instrucciones]" value="{{ object.instrucciones }}">
+            <input type="text" name="technic[instrucciones]" value="{{ object.objeto_tecnhincal.instrucciones }}">
             <label for="instrucciones">instrucciones de instalación</label>
         </div>
-        <div class="input-field ed-item s-100">
-            <input type="text" name="technic[otro_requerimiento]" value="{{ object.otro_requerimiento }}">
+        <!--<div class="input-field ed-item s-100">
+            <input type="text" name="technic[otro_requerimiento]" value="{{ object.objeto_tecnhincal.otro_requerimiento }}">
             <label for="otro_requerimiento">Otros reque. de plataforma</label>
         </div>
         <div class="input-field ed-item s-100">
-            <input type="text" name="technic[duracion]" value="{{ object.duracion }}">
+            <input type="text" name="technic[duracion]" value="{{ object.objeto_tecnhincal.duracion }}">
             <label for="duracion">Duración</label>
         </div>
         <div class="input-field ed-item s-100 file-field">
@@ -54,6 +59,7 @@
                 <input class="file-path validate" type="text">
             </div>
         </div>
+        -->
         <div class="step-actions">
             <button class="waves-effect waves-dark btn blue next-step">CONTINUE</button>
             <button class="waves-effect waves-dark btn-flat previous-step">BACK</button>

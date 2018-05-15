@@ -11,22 +11,22 @@
     <link rel="stylesheet" href="{{ base_url }}/css/template.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="UTF-8">
-
+    <title>Objetos virtuales de aprendizaje - Banco de Objetos de Aprendizaje</title>
 </head>
 <body>
     <div class="ed-container full">
         <div class="ed-item s-100 no-padding">
             <img src="http://www.telceltijuana.com/wp-content/uploads/2016/04/Fondo-BG-1200x200.png" alt="" style="width:100%;height:200px">
         </div>
-        <div class="ed-item s-100 l-20">
+        <div class="ed-item s-100 l-20 blue darken-1 height margin-top-negative-6px">
         <br>
             <form action="{{ path_for('home.search') }}" method="get">
-                <input type="text" name="search" placeholder="Buscar">
+                <input type="text" name="search" placeholder="Buscar" class="black-text">
                 <button class="btn blue">Buscar</button>
             </form>
             <br>
             <hr>
-            <p>Areas de conocimiento</p>
+            <p><b>Areas de conocimiento</b></p>
             <ul class="menu_home">
                 {% for a in areas %}
                     <li><a class="getNucleos" href="{{ path_for('area.nucleo.show', {'area': a.id}) }}" data-id-nucleo="{{ a.id }}">{{ a.name | capitalize  }}</a> <i class="material-icons">arrow_drop_down</i>
@@ -37,23 +37,24 @@
             <br>
             <hr>
             {% if auth.check %}
-                <p><b>{{  auth.user.name | capitalize  }}</b></p>
+                <p><b>{{  auth.user.name }}</b></p>
+                <a href="{{ path_for('user.show', {'id' : auth.user.id}) }}">Mi cuenta</a> <br>
                 {% if auth.user.role == 2 %}
                     <a href="{{ path_for('admin.home') }}">Panel de administración</a> <br>
                 {% endif %}
                 <a href="{{ path_for('auth.signout') }}">Cerrar sesión</a>
             {% else %}
-                <p>inicio de sesion</p>
+                <p><b>Inicio de sesión</b></p>
                 <form action="{{ path_for("auth.signin") }}" method="post" autocomplete="off">
-                    <input type="email" name="email" placeholder="Nombre de usuario">
-                    <input type="password" name="password" placeholder="Contraseña">
-                    <button class="btn blue">inciar sesion</button>
+                    <input type="email" name="email" placeholder="Nombre de usuario" class="black-text">
+                    <input type="password" name="password" placeholder="Contraseña" class="black-text">
+                    <button class="btn blue">inciar sesión</button>
                 </form>
-                <a href="{{ path_for('user.create') }}">crear cuenta</a>
+                <p><b><a href="{{ path_for('user.create') }}">Crear cuenta</a></b></p>
             {% endif %}
 
         </div>
-        <div class="ed-item s-100 l-80 no-padding">
+        <div class="ed-item s-100 l-80 no-padding margin-top-negative-6px">
             {% include 'template/partials/flash.twig' %}
             {% include 'template/partials/breadcrumbs.twig' %}
             {% block content %}{% endblock %}

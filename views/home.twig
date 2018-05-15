@@ -2,22 +2,19 @@
 {% block content %}
 <div class="ed-container">
         <div class="ed-item s-100">
-            <h4>Informacion de lorem</h4>
-            <p>Informacion de lorem</p>
+            <h4>Objetos recientes</h4>
         </div>
         <div class="ed-container">
             {% for o in objects %}
             <div class="ed-item l-1-3 s-100">
-               <div class="card horizontal">
-                    <div class="card-image">
-                        <img src="{{ o.objeto_tecnhincal.miniatura}}">
-                    </div>
+               <div class="card horizontal z-depth-3">
                     <div class="card-stacked">
                         <div class="card-content">
                             <p>{{ o.titulo }}</p>
+                            <small>{{ o.descripcion }}</small>
                         </div>
-                        <div class="card-action">
-                            <a href="{{ path_for('object.home.show', {'area' : getId("Area", "codigo",getData("Nucleo", "codigo", o.nucleo.codigo_area).codigo_area), 'nucleo' : o.nucleo.codigo_area, 'object' : o.id  }) }}">Ver más</a>
+                        <div class="card-action blue lighten-1">
+                            <a class="white-text" href="{{ path_for('object.home.show', {'area' : getId("Area", "codigo",getData("Nucleo", "codigo", o.nucleo.codigo_area).codigo_area), 'nucleo' : o.nucleo.codigo_area, 'object' : o.id  }) }}">Ver más</a>
                         </div>
                     </div>
                 </div>

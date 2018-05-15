@@ -9,7 +9,8 @@ $app->get("/ajaxNucleo", "HomeController:ajaxNucleo");
 $app->get("/ajaxNucleoTemplate", "HomeController:ajaxNucleoTemplate");
 $app->get("/user/create", "AuthController:create")->setName("user.create")->add(new App\Middleware\AuthMiddleware($container));
 $app->post("/user/store", "AuthController:store")->setName("user.store");
-
+$app->get("/user/show/{id}", "AuthController:showN")->setName("user.show");
+$app->post("/user/update/{id}", "AuthController:updateN")->setName("user.update");
 $app->post("/auth/signin", "AuthController:signin")->setName("auth.signin");
 $app->get("/auth/signout", "AuthController:signout")->setName("auth.signout");
 
