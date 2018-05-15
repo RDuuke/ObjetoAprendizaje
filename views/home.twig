@@ -1,17 +1,17 @@
 {% extends "template/base.twig" %}
 {% block content %}
-<div class="ed-container">
+<div class="ed-container full">
         <div class="ed-item s-100">
             <h4>Objetos recientes</h4>
         </div>
-        <div class="ed-container">
+        <div class="ed-container full">
             {% for o in objects %}
             <div class="ed-item l-1-3 s-100">
                <div class="card horizontal z-depth-3">
                     <div class="card-stacked">
                         <div class="card-content">
-                            <p>{{ o.titulo }}</p>
-                            <small>{{ o.descripcion }}</small>
+                            <h4>{{ o.titulo }}</h4>
+                            <p>{{ o.descripcion }}</p>
                         </div>
                         <div class="card-action blue lighten-1">
                             <a class="white-text" href="{{ path_for('object.home.show', {'area' : getId("Area", "codigo",getData("Nucleo", "codigo", o.nucleo.codigo_area).codigo_area), 'nucleo' : o.nucleo.codigo_area, 'object' : o.id  }) }}">Ver más</a>

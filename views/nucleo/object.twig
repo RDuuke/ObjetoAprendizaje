@@ -2,12 +2,12 @@
 {% block content %}
 <div class="ed-container full">
         <div class="ed-item s-100">
-            <h5>Objetos de {{ nucleo.name | capitalize | replace( {'.': ''})  }}</h5>
+            <h4>Objetos de {{ nucleo.name | capitalize | replace( {'.': ''})  }}</h4>
         </div>
         <div class="ed-item s-100">
             <ul>
             {% for o in nucleo.objetos %}
-                <li><a href="{{ path_for('object.home.show', {'area' : nucleo.area.id, 'nucleo' : nucleo.id, 'object': o.codigo_objeto }) }}">{{ o.objeto.titulo | capitalize | replace({'.' : ''})  }}</a></li>
+                <li><h5><a href="{{ path_for('object.home.show', {'area' : nucleo.area.id, 'nucleo' : nucleo.id, 'object': o.codigo_objeto }) }}">{{ o.objeto.titulo | capitalize | replace({'.' : ''})  }}</a></h5></li>
             {% endfor %}
             </ul>
         </div>
